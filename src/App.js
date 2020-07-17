@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Home from './components/Home'
 import NewExpense from './components/NewExpense'
@@ -23,18 +23,18 @@ const App = () => {
 
   //get expenseById
   function getExpenseFromId(id) {
-    return expenses.find((expense) => expense._id === parseInt (id))
+    return expenses.find((expense) => expense._id === parseInt(id))
   }
 
   //add new expense
   function addExpense(expense) {
-    setExpenses([...expenses, expense])
+    setExpenses([expense,...expenses])
   }
 
   //update expense
-  function updateExpense(updateExpense) {
-    const updatedExpense = expenses.filter((expense) => expense._id !== parseInt(updateExpense._id))
-    setExpenses([...updatedExpense, updateExpense])
+  function updateExpense(changeExpense) {
+    const updatedExpense = expenses.filter((expense) => expense._id !== parseInt(changeExpense._id))
+    setExpenses([...updatedExpense, changeExpense])
   }
 
   // delete a single expense instance via id
@@ -49,11 +49,10 @@ const App = () => {
         <Home />
       <Switch>
         <Route exact path="/" render={(props) => <Expenses {...props} expenseData={expenses} /> } />
-          <Route exact path="/expenses/:id" render={(props) => <ExpenseList {...props} expense={getExpenseFromId(props.match.params.id)} showControls deleteExpense={deleteExpense} /> } />
-        <Route exact path = "/expenses/new" render={(props) => <NewExpense {...props} addExpense={addExpense} nextId = {getNextId()} /> } />
-        <Route exact path ="/expenses/edit/:id" render={(props) => <EditExpense {...props} expense={getExpenseFromId(props.match.params.id)} updateExpense={updateExpense}/> }/> 
+        <Route exact path = "/expenses/new" render={(props) => <NewExpense {...props} addExpense={addExpense} nextId= {getNextId()} /> } />
+        <Route exact path="/expenses/:id" render={(props) => <ExpenseList {...props} expense={getExpenseFromId(props.match.params.id)} showControls deleteExpense={deleteExpense} /> } />
+       <Route exact path ="/expenses/edit/:id" render={(props) => <EditExpense {...props} expense={getExpenseFromId(props.match.params.id)} updateExpense={updateExpense}/> }/> 
       </Switch>
-
       </BrowserRouter>   
     </div>
   )

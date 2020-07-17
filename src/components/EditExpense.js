@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import DatePicker from 'react-date-picker'
 
 const EditExpense = ({history, expense, updateExpense, nextId}) => {
 
@@ -12,7 +13,7 @@ const EditExpense = ({history, expense, updateExpense, nextId}) => {
 
     const[formState, setFormState] = useState(initialFormState)
     useEffect(() => {
-      expense && setFormState ({
+      expense&& setFormState ({
         item: formState.item,
         category: formState.category ,
         amount: formState.amount,
@@ -27,9 +28,16 @@ const EditExpense = ({history, expense, updateExpense, nextId}) => {
         setFormState({...formState, [name]:value })
     }
 
+    function handleDateChange(date) {
+        setFormState({
+            ...formState,
+            date: date
+        })
+    }
+
     function handleSubmit (event) {
         event.preventDefault()
-        const updateExpense = {
+        const changeExpense = {
             _id: nextId,
             item: formState.item,
             category: formState.category,
@@ -37,7 +45,7 @@ const EditExpense = ({history, expense, updateExpense, nextId}) => {
             date: formState.date,
             notes: formState.notes
         }
-        updateExpense(updateExpense)
+        updateExpense(changeExpense)
         history.push('/')
     }
 
@@ -61,7 +69,17 @@ const EditExpense = ({history, expense, updateExpense, nextId}) => {
             </div>
             <div>
                <label>Date</label>
-               <input type ="text"  required name="date" value={formState.date} onChange = {handleChange} />
+               <DatePicker 
+                  dateFormat = {["year", "month", "date"]}
+                  value = {formState.date}
+                  name ="date"
+                  onChange = {handleDateChange}
+               />
+               {/* <input type ="text"  required name="date" value={formState.date} onChange = {handleChange} /> */}
+            </div>
+            <div>
+               <label>Description</label>
+               <input type ="text"  required name="notes"  value={formState.notes} onChange = {handleChange} />
             </div>
             <div>
             <input type ="submit" value="Update Expense"></input>
