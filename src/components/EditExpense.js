@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-date-picker'
 
-const EditExpense = ({history, expense, updateExpense, nextId}) => {
+const EditExpense = ({history, expense, updateExpense}) => {
 
     const initialFormState = {
         item: "",
@@ -10,15 +10,14 @@ const EditExpense = ({history, expense, updateExpense, nextId}) => {
         date: "",
         notes: ""
     }
-
     const[formState, setFormState] = useState(initialFormState)
     useEffect(() => {
-      expense&& setFormState ({
-        item: formState.item,
-        category: formState.category ,
-        amount: formState.amount,
-        date: formState.date ,
-        notes: formState.notes 
+      expense && setFormState ({
+        item: expense.item,
+        category: expense.category ,
+        amount: expense.amount,
+        date: expense.date.toLocaleDateString() ,
+        notes: expense.notes 
       })
     },[expense])
 
@@ -27,18 +26,16 @@ const EditExpense = ({history, expense, updateExpense, nextId}) => {
         const value = event.target.value
         setFormState({...formState, [name]:value })
     }
-
     function handleDateChange(date) {
         setFormState({
             ...formState,
             date: date
         })
     }
-
     function handleSubmit (event) {
         event.preventDefault()
         const changeExpense = {
-            _id: nextId,
+            _id: expense._id,
             item: formState.item,
             category: formState.category,
             amount: formState.amount,

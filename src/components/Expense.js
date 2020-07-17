@@ -12,17 +12,26 @@ const Expense = ({history, expense, showControls, deleteExpense}) => {
         deleteExpense(expense._id)
         history.push("/")
     }
+    
+    // handle edit in update button
+    function handleEdit(event){
+        event.preventDefault()
+        history.push(`/expenses/edit/${expense._id}`)
+    }
 
     return (
         <div>
         <Link to={`/expenses/${expense._id}`}>
             <h1>{item}</h1>
             <p>${amount}</p>
-            <p>{date.toLocaleString()}</p>
+            <p>{date.toLocaleDateString()}</p>
             <p>{category}</p>
             <p>{notes}</p>
             {showControls && (
+                <div>
                 <button onClick={handleDelete}>Delete</button>
+                <button onClick={handleEdit}>Edit</button>
+                </div>
             )}
         </Link>
         </div>
