@@ -1,6 +1,7 @@
 import React from 'react'
 import Expense from "./Expense"
 
+
 const ExpenseList = ({expenseData}) => {
     return (
         <div>

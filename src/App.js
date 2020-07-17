@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Home from './components/Home'
 import NewExpense from './components/NewExpense'
 import EditExpense from './components/EditExpense'
-import Expenses from './components/ExpenseList'
+import Expense from './components/Expense'
 import expenseData from './data/expense_data'
 import ExpenseList from './components/ExpenseList'
 
@@ -32,9 +32,9 @@ const App = () => {
   }
 
   //update expense
-  function updateExpense(updateExpense) {
-    const updatedExpense = expenses.filter((expense) => expense._id !== parseInt(updateExpense._id))
-    setExpenses([...updatedExpense, updateExpense])
+  function updateExpense(changeExpense) {
+    const updatedExpense = expenses.filter((expense) => expense._id !== parseInt(changeExpense._id))
+    setExpenses([...updatedExpense, changeExpense])
   }
 
   // delete a single expense instance via id
@@ -48,9 +48,10 @@ const App = () => {
       <BrowserRouter>
         <Home />
       <Switch>
-        <Route exact path="/" render={(props) => <Expenses {...props} expenseData={expenses} /> } />
-          <Route exact path="/expenses/:id" render={(props) => <ExpenseList {...props} expense={getExpenseFromId(props.match.params.id)} showControls deleteExpense={deleteExpense} /> } />
+        <Route exact path="/" render={(props) => <ExpenseList {...props} expenseData={expenses} /> } />
         <Route exact path = "/expenses/new" render={(props) => <NewExpense {...props} addExpense={addExpense} nextId = {getNextId()} /> } />
+        <Route exact path="/expenses" render={(props) => <ExpenseList {...props} expenseData={expenses}/> } />
+        <Route exact path="/expenses/:id" render={(props) => <Expense {...props} expense={getExpenseFromId(props.match.params.id)} showControls deleteExpense={deleteExpense} /> } />
         <Route exact path ="/expenses/edit/:id" render={(props) => <EditExpense {...props} expense={getExpenseFromId(props.match.params.id)} updateExpense={updateExpense}/> }/> 
       </Switch>
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const EditExpense = ({history, expense, updateExpense, nextId}) => {
+const EditExpense = ({history, expense, updateExpense}) => {
 
     const initialFormState = {
         item: "",
@@ -13,11 +13,11 @@ const EditExpense = ({history, expense, updateExpense, nextId}) => {
     const[formState, setFormState] = useState(initialFormState)
     useEffect(() => {
       expense && setFormState ({
-        item: formState.item,
-        category: formState.category ,
-        amount: formState.amount,
-        date: formState.date ,
-        notes: formState.notes 
+        item: expense.item,
+        category: expense.category ,
+        amount: expense.amount,
+        date: expense.date.toLocaleDateString() ,
+        notes: expense.notes 
       })
     },[expense])
 
@@ -29,15 +29,15 @@ const EditExpense = ({history, expense, updateExpense, nextId}) => {
 
     function handleSubmit (event) {
         event.preventDefault()
-        const updateExpense = {
-            _id: nextId,
+        const changeExpense = {
+            _id: expense._id,
             item: formState.item,
             category: formState.category,
             amount: formState.amount,
             date: formState.date,
             notes: formState.notes
         }
-        updateExpense(updateExpense)
+        updateExpense(changeExpense)
         history.push('/')
     }
 
