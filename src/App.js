@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react'
+
+import React, {useState,useEffect} from 'react'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Home from './components/Home'
 import NewExpense from './components/NewExpense'
@@ -10,7 +11,6 @@ import ExpenseList from './components/ExpenseList'
 const App = () => {
 
   const [expenses, setExpenses] = useState([])
-
   useEffect(() => {
     setExpenses(expenseData)
   }, [])
@@ -23,12 +23,12 @@ const App = () => {
 
   //get expenseById
   function getExpenseFromId(id) {
-    return expenses.find((expense) => expense._id === parseInt (id))
+    return expenses.find((expense) => expense._id === parseInt(id))
   }
 
   //add new expense
   function addExpense(expense) {
-    setExpenses([...expenses, expense])
+    setExpenses([expense,...expenses])
   }
 
   //update expense
@@ -54,7 +54,6 @@ const App = () => {
         <Route exact path="/expenses/:id" render={(props) => <Expense {...props} expense={getExpenseFromId(props.match.params.id)} showControls deleteExpense={deleteExpense} /> } />
         <Route exact path ="/expenses/edit/:id" render={(props) => <EditExpense {...props} expense={getExpenseFromId(props.match.params.id)} updateExpense={updateExpense}/> }/> 
       </Switch>
-
       </BrowserRouter>   
     </div>
   )

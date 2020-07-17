@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import DatePicker from 'react-date-picker'
 
 const EditExpense = ({history, expense, updateExpense}) => {
 
@@ -9,7 +10,6 @@ const EditExpense = ({history, expense, updateExpense}) => {
         date: "",
         notes: ""
     }
-
     const[formState, setFormState] = useState(initialFormState)
     useEffect(() => {
       expense && setFormState ({
@@ -26,7 +26,12 @@ const EditExpense = ({history, expense, updateExpense}) => {
         const value = event.target.value
         setFormState({...formState, [name]:value })
     }
-
+    function handleDateChange(date) {
+        setFormState({
+            ...formState,
+            date: date
+        })
+    }
     function handleSubmit (event) {
         event.preventDefault()
         const changeExpense = {
@@ -61,7 +66,17 @@ const EditExpense = ({history, expense, updateExpense}) => {
             </div>
             <div>
                <label>Date</label>
-               <input type ="text"  required name="date" value={formState.date} onChange = {handleChange} />
+               <DatePicker 
+                  dateFormat = {["year", "month", "date"]}
+                  value = {formState.date}
+                  name ="date"
+                  onChange = {handleDateChange}
+               />
+               {/* <input type ="text"  required name="date" value={formState.date} onChange = {handleChange} /> */}
+            </div>
+            <div>
+               <label>Description</label>
+               <input type ="text"  required name="notes"  value={formState.notes} onChange = {handleChange} />
             </div>
             <div>
             <input type ="submit" value="Update Expense"></input>
