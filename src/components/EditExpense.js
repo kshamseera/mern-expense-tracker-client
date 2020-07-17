@@ -76,7 +76,7 @@ const EditExpense = ({history, expense, updateExpense}) => {
             </div>
             <div>
                <label>Description</label>
-               <input type ="text"  required name="notes"  value={formState.notes} onChange = {handleChange} />
+               <textarea type ="text"  required name="notes"  value={formState.notes} onChange = {handleChange} />
             </div>
             <div>
             <input type ="submit" value="Update Expense"></input>

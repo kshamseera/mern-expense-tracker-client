@@ -23,6 +23,7 @@ const Expense = ({history, expense, showControls, deleteExpense}) => {
         <div>
         <Link to={`/expenses/${expense._id}`}>
             <h1>{item}</h1>
+        </Link>
             <p>${amount}</p>
             <p>{date.toLocaleDateString()}</p>
             <p>{category}</p>
@@ -33,7 +34,7 @@ const Expense = ({history, expense, showControls, deleteExpense}) => {
                 <button onClick={handleEdit}>Edit</button>
                 </div>
             )}
-        </Link>
+       
         </div>
     )
 }
