@@ -40,7 +40,7 @@ export default [
         _id: 5	,
         item: "Pizza",
         amount: "15.00",
-        date: new Date("20120-06-05"),
+        date: new Date("2020-06-05"),
         category: "food",
         notes:
             "Friday night special dinner"

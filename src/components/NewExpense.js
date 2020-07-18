@@ -21,6 +21,7 @@ const NewExpense = ({history, addExpense, nextId}) => {
     }
 
     function handleDateChange(date) {
+        console.log(typeof date)
         setFormState({
             ...formState,
             date: date
@@ -71,7 +72,7 @@ const NewExpense = ({history, addExpense, nextId}) => {
             </div>
             <div>
                <label>Description</label>
-               <textarea type ="text"  required name="notes"  value={formState.notes} onChange = {handleChange} />
+               <input type ="text" name="notes"  value={formState.notes} onChange = {handleChange} />
             </div>
             <div>
             <input type ="submit" value="Add Expense"></input>
