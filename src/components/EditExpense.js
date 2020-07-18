@@ -16,7 +16,7 @@ const EditExpense = ({history, expense, updateExpense}) => {
         item: expense.item,
         category: expense.category ,
         amount: expense.amount,
-        date: expense.date.toLocaleDateString() ,
+        date: expense.date,
         notes: expense.notes 
       })
     },[expense])
@@ -76,7 +76,7 @@ const EditExpense = ({history, expense, updateExpense}) => {
             </div>
             <div>
                <label>Description</label>
-               <textarea type ="text"  required name="notes"  value={formState.notes} onChange = {handleChange} />
+               <input type ="text" name="notes"  value={formState.notes} onChange = {handleChange} />
             </div>
             <div>
             <input type ="submit" value="Update Expense"></input>
