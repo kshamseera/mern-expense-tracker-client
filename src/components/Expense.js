@@ -1,15 +1,22 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {useGlobalState} from '../config/store'
 
-const Expense = ({history, expense, showControls, deleteExpense}) => {
+const Expense = ({history, expense, showControls}) => {
+    const {dispatch} = useGlobalState()
+    
     // where no expenses exist, return null
     if (!expense) return null
 
     const {item, amount, date, category, notes} = expense
 
+    // handle the delete button
     function handleDelete(event) {
         event.preventDefault()
-        deleteExpense(expense._id)
+        dispatch({
+            type: "setExpenseList",
+            data: expense._id
+        })
         history.push("/")
     }
     
@@ -34,7 +41,6 @@ const Expense = ({history, expense, showControls, deleteExpense}) => {
                 <button onClick={handleEdit}>Edit</button>
                 </div>
             )}
-       
         </div>
     )
 }

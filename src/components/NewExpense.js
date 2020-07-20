@@ -1,17 +1,13 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import DatePicker from 'react-date-picker'
+import {useGlobalState} from '../config/store'
 
-const NewExpense = ({history, addExpense, nextId}) => {
-
-    const initialFormState = {
-        item: "",
-        category: "",
-        amount: "",
-        date: "",
-        notes: ""
+const NewExpense = ({history}) => {
+      //generating new ids for the new expense
+    function getNextId() {
+        const ids = expenseList.map((expense) => expense._id)
+        return ids.sort()[ids.length-1]+1
     }
-
-    const[formState, setFormState] = useState(initialFormState)
 
     function handleChange(event) {
         console.log("event" , event)
@@ -30,6 +26,7 @@ const NewExpense = ({history, addExpense, nextId}) => {
 
     function handleSubmit (event) {
         event.preventDefault()
+        const nextId = getNextId()
         const newExpense = {
             _id: nextId,
             item: formState.item,
@@ -38,12 +35,26 @@ const NewExpense = ({history, addExpense, nextId}) => {
             date: formState.date,
             notes: formState.notes
         }
-        addExpense(newExpense)
-        history.push('/')
+        dispatch({
+            type: "setExpenseList",
+            data: [...expenseList, newExpense]
+        })
+        history.push(`/expenses/${nextId}`)
     }
 
+    const initialFormState = {
+        item: "",
+        category: "",
+        amount: "",
+        date: "",
+        notes: ""
+    }
+
+    const[formState, setFormState] = useState(initialFormState)
+    const {store, dispatch} = useGlobalState()
+    const {expenseList} = store
+
     return ( 
-        <>
         <form onSubmit = {handleSubmit}>
             <div>
                 <h2>Add Expense</h2>
@@ -66,9 +77,7 @@ const NewExpense = ({history, addExpense, nextId}) => {
                   dateFormat = {["year", "month", "date"]}
                   value = {formState.date}
                   name ="date"
-                  onChange = {handleDateChange}
-               />
-               {/* <input type ="text"  required name="date"  value= {formState.date} onChange = {handleChange}/> */}
+                  onChange = {handleDateChange}/>
             </div>
             <div>
                <label>Description</label>
@@ -78,9 +87,7 @@ const NewExpense = ({history, addExpense, nextId}) => {
             <input type ="submit" value="Add Expense"></input>
             </div>
         </form>
-
-        </>
-     );
+     )
 }
  
-export default NewExpense;
+export default NewExpense

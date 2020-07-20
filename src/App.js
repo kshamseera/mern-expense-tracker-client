@@ -1,60 +1,53 @@
 
-import React, {useState,useEffect} from 'react'
+import React, {useEffect, useReducer} from 'react'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Home from './components/Home'
+import Nav from './components/Nav'
 import NewExpense from './components/NewExpense'
 import EditExpense from './components/EditExpense'
 import Expense from './components/Expense'
 import expenseData from './data/expense_data'
 import ExpenseList from './components/ExpenseList'
+import Register from './components/Register'
+import SignIn from './components/SignIn'
+import stateReducer from './config/stateReducer'
+import {StateContext} from './config/store'
 
 const App = () => {
 
-  const [expenses, setExpenses] = useState([])
+  // initial state for state reducer
+  const initialState = {
+    expenseList: [],
+    loggedInUser: null
+  }
+
+  // creates state reducer store and dispatcher
+  const [store, dispatch] = useReducer(stateReducer,initialState)
+  
   useEffect(() => {
-    setExpenses(expenseData)
-  }, [])
-
-  //generating new ids for the new expense
-  function getNextId() {
-    const ids = expenses.map((expense) => expense._id)
-    return ids.sort()[ids.length-1]+1
-  }
-
-  //get expenseById
-  function getExpenseFromId(id) {
-    return expenses.find((expense) => expense._id === parseInt(id))
-  }
-
-  //add new expense
-  function addExpense(expense) {
-    setExpenses([expense,...expenses])
-  }
-
-  //update expense
-  function updateExpense(changeExpense) {
-    const updatedExpense = expenses.filter((expense) => expense._id !== parseInt(changeExpense._id))
-    setExpenses([...updatedExpense, changeExpense])
-  }
-
-  // delete a single expense instance via id
-  function deleteExpense(id) {
-    const updatedExpenses = expenses.filter((expense) => expense._id !== parseInt(id))
-    setExpenses(updatedExpenses)
-  }
+    dispatch({
+      type: "setExpenseList",
+      data: expenseData
+    })
+  },[])
 
   return (
     <div >
-      <BrowserRouter>
-        <Home />
-      <Switch>
-        <Route exact path="/" render={(props) => <ExpenseList {...props} expenseData={expenses} /> } />
-        <Route exact path = "/expenses/new" render={(props) => <NewExpense {...props} addExpense={addExpense} nextId = {getNextId()} /> } />
-        <Route exact path="/expenses" render={(props) => <ExpenseList {...props} expenseData={expenses}/> } />
-        <Route exact path="/expenses/:id" render={(props) => <Expense {...props} expense={getExpenseFromId(props.match.params.id)} showControls deleteExpense={deleteExpense} /> } />
-        <Route exact path ="/expenses/edit/:id" render={(props) => <EditExpense {...props} expense={getExpenseFromId(props.match.params.id)} updateExpense={updateExpense}/> }/> 
-      </Switch>
-      </BrowserRouter>   
+      <StateContext.Provider value={{store,dispatch}} >
+        <BrowserRouter>
+          <Nav />
+          <Home />
+          <Switch>
+            <Route exact path="/" component={ExpenseList} />
+            <Route exact path="/expenses/:id" component={Expense} />
+            <Route exact path="/expenses/new" component={NewExpense} />
+            <Route exact path="/expenses" component={ExpenseList} />
+            <Route exact path="/expenses/edit/:id" component={EditExpense}/> 
+            <Route exact path="/auth/login" component={SignIn} />
+            <Route exact path="/auth/register" component={Register} />
+          </Switch>
+        </BrowserRouter>
+      </StateContext.Provider>   
     </div>
   )
 }

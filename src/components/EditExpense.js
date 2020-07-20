@@ -1,25 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import {useGlobalState} from '../config/store'
 import DatePicker from 'react-date-picker'
 
-const EditExpense = ({history, expense, updateExpense}) => {
+const EditExpense = ({history, expense}) => {
 
-    const initialFormState = {
-        item: "",
-        category: "",
-        amount: "",
-        date: "",
-        notes: ""
-    }
-    const[formState, setFormState] = useState(initialFormState)
-    useEffect(() => {
-      expense && setFormState ({
-        item: expense.item,
-        category: expense.category ,
-        amount: expense.amount,
-        date: expense.date,
-        notes: expense.notes 
-      })
-    },[expense])
+    const {store, dispatch} = useGlobalState()
+    const {expenseList} = store
 
     function handleChange(event) {
         const name = event.target.name
@@ -34,7 +20,7 @@ const EditExpense = ({history, expense, updateExpense}) => {
     }
     function handleSubmit (event) {
         event.preventDefault()
-        const changeExpense = {
+        const updatedExpense = {
             _id: expense._id,
             item: formState.item,
             category: formState.category,
@@ -42,12 +28,37 @@ const EditExpense = ({history, expense, updateExpense}) => {
             date: formState.date,
             notes: formState.notes
         }
-        updateExpense(changeExpense)
-        history.push('/')
+        const otherExpenses = expenseList.filter((expense) => expense._id !== updatedExpense._id)
+
+        dispatch({
+            type: "setExpenseList",
+            data: [...otherExpenses, updatedExpense]
+        })
+        history.push(`/posts/${expense._id}`)
     }
 
+    // pre-fills form with values of current expense
+    const initialFormState = {
+        item: "",
+        category: "",
+        amount: "",
+        date: "",
+        notes: ""
+    }
+
+    const[formState, setFormState] = useState(initialFormState)
+
+    useEffect(() => {
+      expense && setFormState ({
+        item: expense.item,
+        category: expense.category ,
+        amount: expense.amount,
+        date: expense.date,
+        notes: expense.notes 
+      })
+    },[expense])
+  
     return ( 
-        <>
         <form onSubmit = {handleSubmit}>
             <div>
                 <h2>Edit Expense</h2>
@@ -70,8 +81,7 @@ const EditExpense = ({history, expense, updateExpense}) => {
                   dateFormat = {["year", "month", "date"]}
                   value = {formState.date}
                   name ="date"
-                  onChange = {handleDateChange}
-               />
+                  onChange = {handleDateChange}/>
                {/* <input type ="text"  required name="date" value={formState.date} onChange = {handleChange} /> */}
             </div>
             <div>
@@ -82,9 +92,7 @@ const EditExpense = ({history, expense, updateExpense}) => {
             <input type ="submit" value="Update Expense"></input>
             </div>
         </form>
-
-        </>
-     );
+     )
 }
  
-export default EditExpense;
+export default EditExpense
