@@ -11,15 +11,11 @@ const Expense = ({history, expense, showControls}) => {
     if (!expense) return null
 
     const {item, amount, date, category, notes} = expense
-    // console.log("Date",date)
     const allowEditDelete = loggedInUser && loggedInUser === expense.username
-    console.log("show controls", showControls)
-    console.log("Allowed delete", allowEditDelete)
-    console.log("username", expense.username)
-    // const linkStyles = {
-    //     textDecoration: "none",
-    //     color:'black'
-    // }
+    const linkStyles = {
+        textDecoration: "none",
+        color:'black'
+    }
    //Handle delete button
     function handleDelete(event) {
         event.preventDefault()
@@ -44,11 +40,11 @@ const Expense = ({history, expense, showControls}) => {
 
     return (
         <div>
-        <Link to={`/expenses/${expense._id}`}>
+        <Link style={linkStyles} to={`/expenses/${expense._id}`}>
             <h1>{item}</h1>
         </Link>
             <p>${amount}</p>
-            <p>{date}</p>
+            <p>{new Date(date).toLocaleDateString()}</p>
             <p>{category}</p>
             <p>{notes}</p>
             {showControls && allowEditDelete && (
@@ -57,7 +53,6 @@ const Expense = ({history, expense, showControls}) => {
                 <button onClick={handleEdit}>Edit</button>
                 </div>
             )}
-       
         </div>
     )
 }
