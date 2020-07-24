@@ -47,8 +47,8 @@ const App = () => {
     <stateContext.Provider value ={{store, dispatch}}>
       <BrowserRouter>
         <Nav />
-        <Home />
       <Switch>
+       <Route exact path ="/" component = {Home} />
         <Route exact path="/expenses/all"  component= {ExpenseList} />
         <Route exact path = "/expenses/new" component= {NewExpense} />
         <Route exact path="/expenses/:id" render={(props) => <Expense {...props} expense={getExpenseFromId(expenses,props.match.params.id)} showControls /> }/>

@@ -44,3 +44,32 @@ export function fetchExpenses(dispatch) {
        console.log("An error occured fetching expenses from the server:", error)
      })
   }
+
+  export function getMonthTotal(expenses) {
+    const thisMonth = new Date(Date.now()).getMonth()
+   return expenses.reduce((total,expense) => {
+      const date = new Date(expense.date)
+      return date.getMonth() === thisMonth ? total+expense.amount : total
+    },0)
+  }
+
+  export function getDayTotal(expenses, date) {
+      return expenses.reduce((total,expense) => {
+      const expenseDate = new Date(expense.date)
+      return expenseDate.getUTCDate() === date.getUTCDate() //day
+      && expenseDate.getUTCMonth() === date.getUTCMonth()
+      && expenseDate.getUTCFullYear() === date.getUTCFullYear() 
+      ? total+expense.amount : total
+    },0)    
+  }
+
+  export function getYesterdayTotal(expenses) {
+    const yesterdayDate = new Date()
+    yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+    return getDayTotal(expenses, yesterdayDate)  
+  }
+
+  export function getTodayTotal(expenses) {
+    const todayDate = new Date(Date.now())
+    return getDayTotal(expenses, todayDate)
+  }

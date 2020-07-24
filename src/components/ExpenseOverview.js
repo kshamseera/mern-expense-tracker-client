@@ -1,8 +1,9 @@
 import React from 'react';
 import{Link} from 'react-router-dom'
+import {useGlobalState} from '../config/store'
+import {getMonthTotal,getTodayTotal,getYesterdayTotal} from '../services/expenseServices'
 
-const expenseOverview = () => {
-
+const ExpenseOverview = () => {
     const linkStyles={
         fontSize: '1.2em',
         textDecoration: 'none',
@@ -17,17 +18,35 @@ const expenseOverview = () => {
         backgroundColor: "white",
        
     }
-
+    const labelStyle ={
+        display:"block",
+        padding:"1rem 0 .5rem 0",
+        fontSize:"22px",
+        color:"brown"
+    }
+    
+    const {store} = useGlobalState()
+    const {expenses} =store
+    // console.log("expense",expenses)
+    const monthTotal =getMonthTotal(expenses)
+    const todayTotal = getTodayTotal(expenses)
+    const yesterdayTotal = getYesterdayTotal(expenses)
+    
     return ( 
     <div style ={formStyle}>
         <div>
             <h3>You have spent</h3>
-                <p>$0</p> 
+                <p>${monthTotal}</p> 
                 <p>So far this month</p>
         </div>
         <form>
-            <input type ="text" ></input> 
-            <input type ="text"></input> 
+            
+                <label style= {labelStyle} >Today</label>
+                <input type ="text" readOnly value ={todayTotal} ></input> 
+            
+                <label style= {labelStyle} >Yesterday</label>
+                <input type ="text" readOnly value ={yesterdayTotal}></input> 
+            
         </form> 
         <div>
             <Link style= {linkStyles} to ='/expenses/all'>See More</Link>
@@ -36,4 +55,4 @@ const expenseOverview = () => {
      );
 }
  
-export default expenseOverview;
+export default ExpenseOverview;
