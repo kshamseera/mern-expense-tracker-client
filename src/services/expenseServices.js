@@ -46,26 +46,29 @@ export function fetchExpenses(dispatch) {
   }
 
   export function getMonthTotal(expenses) {
-    const thisMonth = new Date(Date.now()).getMonth()
-   return expenses.reduce((total,expense) => {
+      const thisMonth = new Date(Date.now()).getMonth()
+      return expenses.reduce((total,expense) => {
       const date = new Date(expense.date)
-      return date.getMonth() === thisMonth ? total+expense.amount : total
+      return date.getMonth() === thisMonth ? parseFloat(total)+parseFloat(expense.amount) : total
+      
     },0)
+   
   }
 
   export function getDayTotal(expenses, date) {
-      return expenses.reduce((total,expense) => {
+      return expenses.reduce((total,expense) => {  
       const expenseDate = new Date(expense.date)
-      return expenseDate.getUTCDate() === date.getUTCDate() //day
-      && expenseDate.getUTCMonth() === date.getUTCMonth()
-      && expenseDate.getUTCFullYear() === date.getUTCFullYear() 
-      ? total+expense.amount : total
-    },0)    
+      return expenseDate.getDate() === date.getDate() //day
+      && expenseDate.getMonth() === date.getMonth()
+      && expenseDate.getFullYear() === date.getFullYear() 
+      ? parseFloat(total)+parseFloat(expense.amount) : total
+    },0)  
   }
 
   export function getYesterdayTotal(expenses) {
-    const yesterdayDate = new Date()
+    let yesterdayDate = new Date()
     yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+    yesterdayDate = new Date(yesterdayDate.toDateString())
     return getDayTotal(expenses, yesterdayDate)  
   }
 

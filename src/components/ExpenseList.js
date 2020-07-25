@@ -81,12 +81,11 @@ const ExpenseList = () => {
         event.preventDefault()
         const filteredExpenses = expenses.filter(function(expense) {
             const expenseDate = new Date(expense.date) //change date to object
-            // console.log(expenseDate)
             return (expenseDate >= formDate.fromDate && expenseDate <= formDate.toDate )
             })
         setDisplayExpenses(filteredExpenses)
         if(filteredExpenses.length === 0){
-            setMessage("There are no record available")
+            setMessage("There are no records available")
         }
         else{
             setMessage(null)

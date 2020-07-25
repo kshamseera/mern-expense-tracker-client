@@ -117,7 +117,7 @@ const NewExpense = ({history}) => {
             </div>
             <div>
                <label style = {labelStyle}>Amount</label>
-               <input style = {inputStyle}  type ="text"  required name="amount" placeholder ="$" value={formState.amount} onChange = {handleChange} />
+               <input style = {inputStyle}  type ="number"  required name="amount" placeholder ="$" value={formState.amount} onChange = {handleChange} />
             </div>
             <div>
                <label style = {labelStyle} >Date</label>
