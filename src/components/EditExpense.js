@@ -112,7 +112,7 @@ const EditExpense = ({history, match}) => {
         item: expense.item,
         category: expense.category ,
         amount: expense.amount,
-        date: expense.date,
+        date: new Date(expense.date),
         notes: expense.notes 
       })
     },[expense])
@@ -135,7 +135,7 @@ const EditExpense = ({history, match}) => {
             </div>
             <div>
                <label style = {labelStyle} >Amount</label>
-               <input style = {inputStyle}  type ="text"  required name="amount"  value={formState.amount} onChange = {handleChange} />
+               <input style = {inputStyle}  type ="number"  required name="amount"  value={formState.amount} onChange = {handleChange} />
             </div>
             <div>
                <label style = {labelStyle} >Date</label>

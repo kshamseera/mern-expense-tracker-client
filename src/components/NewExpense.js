@@ -12,9 +12,6 @@ const NewExpense = ({history}) => {
         padding: "2rem",
         fontFamily: "sanSerif",
         backgroundColor: "white",
-        // position: "relative",
-        // left:"50%",
-        // top:"50%",
         transform: "translate(-50% -50%)",
         // width: "400px",
         // height:"500px",
@@ -65,7 +62,7 @@ const NewExpense = ({history}) => {
     }
 
     function handleDateChange(date) {
-        console.log(typeof date)
+        // console.log(typeof date)
         setFormState({
             ...formState,
             date: date
@@ -86,7 +83,7 @@ const NewExpense = ({history}) => {
                 type: "setExpenses",
                 data: [newExpense,...expenses]
             })
-            history.push(`/expenses/${newExpense._id}`)
+            history.push('/')
         }).catch ((error) => {
             console.log("Caught an error on server adding a expense", error)
         })
@@ -120,7 +117,7 @@ const NewExpense = ({history}) => {
             </div>
             <div>
                <label style = {labelStyle}>Amount</label>
-               <input style = {inputStyle}  type ="text"  required name="amount" placeholder ="$" data-cy="inputAmount" value={formState.amount} onChange = {handleChange} />
+               <input style = {inputStyle}  type ="number"  required name="amount" placeholder ="$" data-cy="inputAmount" value={formState.amount} onChange = {handleChange} />
             </div>
             <div>
                <label style = {labelStyle}>Date</label>
@@ -132,7 +129,6 @@ const NewExpense = ({history}) => {
                   style = {inputStyle}
                   data-cy="datePicker" 
                />
-               {/* <input type ="text"  required name="date"  value= {formState.date} onChange = {handleChange}/> */}
             </div>
             <div>
                <label style = {labelStyle} >Description</label>
