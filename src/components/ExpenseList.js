@@ -7,7 +7,7 @@ const ExpenseList = () => {
     const {expenses} = store
     
     return (
-        <div>
+        <div data-cy="expenses">
            {expenses.sort((a,b) => b.date - a.date).map((expense) => <Expense key={expense._id} expense={expense} />)} 
         </div>
     )

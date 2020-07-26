@@ -88,18 +88,18 @@ const SignIn = ({history}) => {
         })		
     }
     return (
-        <form style ={formStyle} onSubmit={handleSubmit}>
+        <form style ={formStyle} data-cy="loginForm" onSubmit={handleSubmit}>
             {errorMessage && <p>{errorMessage}</p>}
             <div>
-                <label style ={labelStyle}>Username</label>
-                <input style ={inputStyle}required type="text" name="username" placeholder="Enter a username" onChange={handleChange}></input>
+                <label style ={labelStyle} >Username</label>
+                <input style ={inputStyle}required type="text" name="username" placeholder="Enter a username" data-cy="username" onChange={handleChange}></input>
             </div>
             <div>
                 <label style ={labelStyle}>Password</label>
-                <input style ={inputStyle} required type="password" name="password" placeholder="Enter a password" onChange={handleChange}></input>
+                <input style ={inputStyle} required type="password" name="password" placeholder="Enter a password" data-cy="password" onChange={handleChange}></input>
             </div>
             <div>
-                <button style ={buttonStyle} type="submit" value="Login">Login</button>
+                <button style ={buttonStyle} type="submit" value="Login" data-cy="loginButton">Login</button>
             </div>   
         </form>
     )

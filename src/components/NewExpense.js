@@ -112,30 +112,31 @@ const NewExpense = ({history}) => {
             </div>
             <div>
                <label style ={labelStyle}>Item Name</label>
-               <input style = {inputStyle} type ="text"  required name="item"  value={formState.item} onChange = {handleChange} />
+               <input style = {inputStyle} type ="text"  required name="item" data-cy="inputItem" value={formState.item} onChange = {handleChange} />
             </div>
             <div>
                <label style = {labelStyle}>Category</label>
-               <input style = {inputStyle}  type ="text"  required name="category"  value={formState.category} onChange = {handleChange} />
+               <input style = {inputStyle}  type ="text"  required name="category" data-cy="inputCategory" value={formState.category} onChange = {handleChange} />
             </div>
             <div>
                <label style = {labelStyle}>Amount</label>
-               <input style = {inputStyle}  type ="text"  required name="amount" placeholder ="$" value={formState.amount} onChange = {handleChange} />
+               <input style = {inputStyle}  type ="text"  required name="amount" placeholder ="$" data-cy="inputAmount" value={formState.amount} onChange = {handleChange} />
             </div>
             <div>
-               <label style = {labelStyle} >Date</label>
-               <DatePicker 
+               <label style = {labelStyle}>Date</label>
+               <DatePicker
                   dateFormat = {["year", "month", "date"]}
                   value = {formState.date}
                   name ="date"
                   onChange = {handleDateChange}
-                  style = {inputStyle} 
+                  style = {inputStyle}
+                  data-cy="datePicker" 
                />
                {/* <input type ="text"  required name="date"  value= {formState.date} onChange = {handleChange}/> */}
             </div>
             <div>
                <label style = {labelStyle} >Description</label>
-               <input style = {inputStyle}  type ="text" name="notes"  value={formState.notes} onChange = {handleChange} />
+               <input style = {inputStyle}  type ="text" name="notes"  data-cy="inputNotes" value={formState.notes} onChange = {handleChange} />
             </div>
             <div>
             <button style = {buttonStyle}  type ="submit" >Add Expense</button>
