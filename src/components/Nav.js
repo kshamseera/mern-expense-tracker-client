@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import {Link} from 'react-router-dom'
 import {useGlobalState} from '../config/store'
 import {logoutUser} from '../services/authServices'
@@ -37,18 +37,18 @@ const Nav = () => {
 
 
     return ( 
-        <div style={divStyles}>
+        <div style={divStyles} data-cy="navbar">
         <Link style={linkStyles} to="/">Home</Link>
         {loggedInUser 
-        ? (	<div >
+        ? (	<div data-cy="navLoggedIn">
                 {/* <span style={space}>{loggedInUser}</span> */}
                 <Link style={linkStyles} to={"/expenses/all"}>All Expenses</Link>
-                <Link style={linkStyles} to={"/expenses/new"}>Add Expense</Link>
-                <Link style={linkStyles} to="/" onClick={handleLogout}>Logout</Link>
+                <Link style={linkStyles} to={"/expenses/new"} data-cy="addExpense">Add Expense</Link>
+                <Link style={linkStyles} to="/" onClick={handleLogout} data-cy="logout">Logout</Link>
             </div>)
-        : (	<div>
-                <Link style={linkStyles} to="auth/register">SignUp</Link>
-                <Link style={linkStyles} to="auth/login">SignIn</Link>
+        : (	<div data-cy="navLoggedOut">
+                <Link style={linkStyles} to="/auth/register" data-cy="signUp">SignUp</Link>
+                <Link style={linkStyles} to="/auth/login" data-cy="signIn">SignIn</Link>
             </div>)
         }   
     </div>

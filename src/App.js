@@ -53,8 +53,8 @@ const App = () => {
         <Route exact path = "/expenses/new" component= {NewExpense} />
         <Route exact path="/expenses/:id" render={(props) => <Expense {...props} expense={getExpenseFromId(expenses,props.match.params.id)} showControls /> }/>
         <Route exact path ="/expenses/edit/:id" component= {EditExpense} /> 
-        <Route exact path="/auth/login" component={ SignIn} />
-        <Route exact path="/auth/register" component={Register} />
+        <Route path="/auth/login" component={ SignIn} />
+        <Route path="/auth/register" component={Register} />
       </Switch>
       </BrowserRouter>  
       </stateContext.Provider> 

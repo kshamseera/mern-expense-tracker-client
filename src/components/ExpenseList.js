@@ -93,6 +93,8 @@ const ExpenseList = () => {
     }
 
     return (
+        <div data-cy="expenses">
+           {expenses.sort((a,b) => b.date - a.date).map((expense) => <Expense key={expense._id} expense={expense} />)} 
         <div>
         <form style ={formStyle} onSubmit ={handleSubmit}>
         <label style = {labelStyle} >Records From</label>
