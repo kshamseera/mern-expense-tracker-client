@@ -1,22 +1,29 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
 import {useGlobalState} from '../config/store'
 import {logoutUser} from '../services/authServices'
+import { makeStyles } from '@material-ui/core'
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import HomeIcon from '@material-ui/icons/Home';
+import AddIcon from '@material-ui/icons/Add'
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+   }))
 
 const Nav = () => {
-    
-    const divStyles={
-        display: 'flex',
-        justifyContent: 'space-between',
-        backgroundColor: 'lightblue',
-        height: '3rem',
-        margin:"0px"
-    }
-    const linkStyles={
-        fontSize: '1.4em',
-        textDecoration: 'none',
-        margin: '.5em'
-    }
+    const classes = useStyles()
 
     // Logout user
     function handleLogout() {
@@ -35,24 +42,31 @@ const Nav = () => {
     const {store, dispatch} = useGlobalState()
     const {loggedInUser} = store
 
-
     return ( 
-        <div style={divStyles} data-cy="navbar">
-        <Link style={linkStyles} to="/">Home</Link>
-        {loggedInUser 
-        ? (	<div data-cy="navLoggedIn">
+        <div className={classes.root} data-cy="navbar">
+        <AppBar position="static">
+            <Toolbar>
+                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" href="/">
+                    <HomeIcon/>
+                </IconButton>
+                <Typography variant="h6" className={classes.title}>
+                </Typography>
+                {loggedInUser 
+                ? (	<div data-cy="navLoggedIn">
                 {/* <span style={space}>{loggedInUser}</span> */}
-                <Link style={linkStyles} to={"/expenses/all"}>All Expenses</Link>
-                <Link style={linkStyles} to={"/expenses/new"} data-cy="addExpense">Add Expense</Link>
-                <Link style={linkStyles} to="/" onClick={handleLogout} data-cy="logout">Logout</Link>
-            </div>)
-        : (	<div data-cy="navLoggedOut">
-                <Link style={linkStyles} to="/auth/register" data-cy="signUp">SignUp</Link>
-                <Link style={linkStyles} to="/auth/login" data-cy="signIn">SignIn</Link>
-            </div>)
-        }   
-    </div>
-     );
+                <Button href="/expenses/all" color="inherit">All Expenses</Button>
+                <Button href="/expenses/new" color="inherit" data-cy="addExpense"><AddIcon style={{marginRight: 4}}/>Add Expense</Button>
+                <Button href="/" color="inherit" onClick={handleLogout} data-cy="logout">Logout</Button>
+                </div>)
+                : (	<div data-cy="navLoggedOut">
+                <Button href="/auth/register" color="inherit" data-cy="signUp">SignUp</Button>
+                <Button href="/auth/login" color="inherit" data-cy="signIn">SignIn</Button>
+                 </div>)
+               }   
+            </Toolbar>
+        </AppBar>
+        </div>
+     )
 }
  
-export default Nav;
+export default Nav
