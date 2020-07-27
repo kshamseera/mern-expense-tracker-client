@@ -1,58 +1,93 @@
 import React from 'react';
 import{Link} from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import Typography from '@material-ui/core/Typography'
 import {useGlobalState} from '../config/store'
 import {getMonthTotal,getTodayTotal,getYesterdayTotal} from '../services/expenseServices'
 
+const useStyles = makeStyles(theme => ({
+    card: {
+      maxWidth: 800,
+      margin: 'auto',
+      marginTop: theme.spacing(20),
+      marginBottom: theme.spacing(10),
+      backgroundColor: "#E8EAF6"
+    },
+    title2: {
+      padding:`32px ${theme.spacing(2.5)}px 2px`,
+      color: '#2bbd7e',
+      fontsize:'4em'
+    },
+    totalSpent: {
+      padding: '50px 40px',
+      fontSize: '4em',
+      margin: 20,
+      marginBottom: 30,
+      backgroundColor: '#01579b',
+      color: '#70f0ae',
+      textAlign: 'center',
+      borderRadius: '50%',
+      border: '10px double #70f0ae',
+      fontWeight: 300
+    },
+    spent: {
+      margin: '16px 10px 10px 0',
+      padding: '10px 30px',
+      border: '4px solid #58bd7f38',
+      borderRadius: '0.5em'
+    },
+    day: {
+      fontSize: '0.9em',
+      fontStyle: 'italic',
+      color: '#696969'
+    }
+  }))
+
 const ExpenseOverview = () => {
-    const linkStyles={
-        fontSize: '1.2em',
-        textDecoration: 'none',
-        margin: '.5em'
-    }
-    const formStyle= {
-        maxWidth : "500px",
-        margin: "2rem auto",
-        // border: "2px solid black",
-        padding: "2rem",
-        fontFamily: "sanSerif",
-        backgroundColor: "white",
-       
-    }
-    const labelStyle ={
-        display:"block",
-        padding:"1rem 0 .5rem 0",
-        fontSize:"22px",
-        color:"brown"
-    }
+    const classes = useStyles()
     
     const {store} = useGlobalState()
     const {expenses} =store
-    // console.log("expense",expenses)
+
     const monthTotal =getMonthTotal(expenses)
     const todayTotal = getTodayTotal(expenses)
     const yesterdayTotal = getYesterdayTotal(expenses)
     
     return ( 
-    <div style ={formStyle}>
-        <div>
-            <h3>You have spent</h3>
-                <p>${monthTotal}</p> 
-                <p>So far this month</p>
+        <Card className={classes.card}>
+            <Typography variant="h4" className={classes.title2} color="textPrimary" style={{textAlign:'center'}}>You've spent</Typography>
+       
+        <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <Typography component="span" className={classes.totalSpent}>${monthTotal} <span style={{display: 'block', fontSize:'0.3em'}}>So Far This Month</span></Typography>
+        <div style={{margin:'20px 20px 20px 30px' }}>
+        <Typography variant="h5" className={classes.spent} color="primary">${todayTotal} <span className={classes.day}>Today</span></Typography>  
+        <Typography variant="h5" className={classes.spent} color="primary">${yesterdayTotal} <span className={classes.day}>Yesterday </span></Typography>
+        <Link to="/expenses/all"><Typography variant="h6">See More</Typography></Link>
         </div>
-        <form>
+        </div>  
+        </Card>
+    /* // <div style ={formStyle}>
+    //     <div>
+    //         <h3>You have spent</h3>
+    //             <p>${monthTotal}</p> 
+    //             <p>So far this month</p>
+    //     </div>
+    //     <form>
             
-                <label style= {labelStyle} >Today</label>
-                <input type ="text" readOnly value ={todayTotal} ></input> 
+    //             <label style= {labelStyle} >Today</label>
+    //             <input type ="text" readOnly value ={todayTotal} ></input> 
             
-                <label style= {labelStyle} >Yesterday</label>
-                <input type ="text" readOnly value ={yesterdayTotal}></input> 
+    //             <label style= {labelStyle} >Yesterday</label>
+    //             <input type ="text" readOnly value ={yesterdayTotal}></input> 
             
-        </form> 
-        <div>
-            <Link style= {linkStyles} to ='/expenses/all'>See More</Link>
-        </div>   
-    </div>
-     );
+    //     </form> 
+    //     <div>
+    //         <Link style= {linkStyles} to ='/expenses/all'>See More</Link>
+    //     </div>   
+    // </div>
+     ); */
+    );
 }
  
 export default ExpenseOverview;
