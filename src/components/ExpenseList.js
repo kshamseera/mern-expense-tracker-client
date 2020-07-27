@@ -95,30 +95,30 @@ const ExpenseList = () => {
     return (
         <div data-cy="expenses">
            {expenses.sort((a,b) => b.date - a.date).map((expense) => <Expense key={expense._id} expense={expense} />)} 
-        <div>
-        <form style ={formStyle} onSubmit ={handleSubmit}>
-        <label style = {labelStyle} >Records From</label>
-               <DatePicker 
-                  dateFormat = {["year", "month", "date"]}
-                  name ="fromdate"
-                  value={formDate.fromDate}
-                  onChange = {handleFromDateChange}
-                  style = {inputStyle} 
-               />
-        <label style = {labelStyle} >Records To</label>
-            <DatePicker 
-                dateFormat = {["year", "month", "date"]}
-                name ="todate"
-                value={formDate.toDate}
-               onChange = {handleToDateChange}
-                style = {inputStyle} 
-            />  
-            <input type ="submit" style ={buttonStyle} value ="Search" ></input>  
-        </form>
-    
-        <div>
-        {message && <p>{message}</p>}
-           {displayExpenses.sort((a,b) => b.date - a.date).map((expense) => <Expense key={expense._id} expense={expense} />)} 
+            <div>
+                <form style ={formStyle} onSubmit ={handleSubmit}>
+                    <label style = {labelStyle} >Records From</label>
+                    <DatePicker 
+                        dateFormat = {["year", "month", "date"]}
+                        name ="fromdate"
+                        value={formDate.fromDate}
+                        onChange = {handleFromDateChange}
+                        style = {inputStyle} 
+                    />
+                    <label style = {labelStyle} >Records To</label>
+                    <DatePicker 
+                        dateFormat = {["year", "month", "date"]}
+                        name ="todate"
+                        value={formDate.toDate}
+                        onChange = {handleToDateChange}
+                        style = {inputStyle} 
+                    />  
+                    <input type ="submit" style ={buttonStyle} value ="Search" ></input>  
+                </form>
+            <div>
+                {message && <p>{message}</p>}
+                {displayExpenses.sort((a,b) => b.date - a.date).map((expense) => <Expense key={expense._id} expense={expense} />)} 
+            </div>
         </div>
         </div> 
     )
