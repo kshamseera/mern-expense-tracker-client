@@ -1,57 +1,49 @@
 import React, {useState} from 'react'
 import {useGlobalState} from '../config/store'
 import {registerUser} from '../services/authServices'
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles(theme => ({
+    card: {
+      maxWidth: 800,
+      margin: 'auto',
+      textAlign: 'center',
+      marginTop: theme.spacing(20),
+      paddingBottom: theme.spacing(2),
+      backgroundColor: "#E8EAF6"
+    },
+    error: {
+      verticalAlign: 'middle',
+      color: 'red'
+    },
+    title: {
+      marginTop: theme.spacing(2),
+      color: theme.palette.openTitle,
+      fontSize:"24px",
+      fontWeight:"bold",
+      textTransform:"uppercase",
+      fontFamily: "Roboto"
+    },
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: 300
+    },
+    submit: {
+      margin: 'auto',
+      marginBottom: theme.spacing(2)
+    },
+   }))
+   
 
 const Register = ({history}) => {
-    const formStyle= {
-        maxWidth : "500px",
-        margin: "2rem auto",
-        border: "2px solid black",
-        padding: "2rem",
-        fontFamily: "sanSerif",
-        backgroundColor: "white",
-        // position: "relative",
-        // left:"50%",
-        // top:"50%",
-        transform: "translate(-50% -50%)",
-        // width: "400px",
-        // height:"500px",
-        // padding: "80px 40px"
-    }
-    const labelStyle ={
-        display:"block",
-        padding:"1rem 0 .5rem 0",
-        fontSize:"22px",
-        color:"Brown"
-    }
-
-    const inputStyle ={
-        display: "block",
-        width: "100%",
-        // border: "1px solid #298089",
-        border:"none",
-        padding:".5rem",
-        fontSize: "18px",
-        borderRadius: "5px",
-        background: "transparent",
-        borderBottom:"1px solid #000",
-        // outline:"none"
-
-    }
-    const buttonStyle ={
-        display: "block",
-        border:"0",
-        width:"auto",
-        borderRadius: "5px",
-        background: "#343050",
-        fontSize: "20px",
-        padding: ".5rem",
-        color: "white",
-        margin:".7rem 0",
-        cursor: "pointer",
-        outline:"none"
-    }
-
+    const classes = useStyles()
     const initialFormState = {
         username: "",
         email: "",
@@ -93,25 +85,23 @@ const Register = ({history}) => {
         })
     }
     return (
-        <form style = {formStyle} onSubmit={handleSubmit} data-cy="registerFrom">
-            {errorMessage && <p>{errorMessage}</p>}
-            <div>
-                <label style = {labelStyle}>Username</label>
-                <input style = {inputStyle} required type="text" name="username" placeholder="Enter a username" data-cy="username" onChange={handleChange}></input>
-            </div>
-            <div>
-                <label style = {labelStyle}>Email</label>
-                <input style = {inputStyle}required type="email" name="email" placeholder="Enter an email" data-cy="email" onChange={handleChange}></input>
-            </div>
-            <div>
-                <label style = {labelStyle}>Password</label>
-                <input style = {inputStyle} required type="password" name="password" placeholder="Enter a password" data-cy="password" onChange={handleChange}></input>
-            </div>
-            <div>
-                <button style = {buttonStyle} type="submit" value="Register" data-cy="registerButton">Register</button>
-            </div>
-            
-        </form>
+    <div>
+      <Card className={classes.card}>
+
+        <CardContent>
+            <Typography component="p" color="error">{errorMessage && <p>{errorMessage}</p>}</Typography>
+            <Typography variant="h6" className={classes.title} fontSize="22px">  
+                Sign Up
+            </Typography>
+            <TextField id="name" label="Username" className={classes.textField} name= "username" onChange={handleChange} margin="normal"/><br/>
+            <TextField id="email" label="Email" type="email" className={classes.textField} name= "email" onChange={handleChange} margin="normal"/><br/>
+            <TextField id="password" label="Password" type="password" className={classes.textField} name= "password" onChange={handleChange} margin="normal"/><br/>
+        </CardContent> 
+        <CardActions>
+            <Button color="primary" variant="contained" onClick={handleSubmit} className={classes.submit}>Register</Button>
+       </CardActions>
+      </Card>
+    </div>
     )
 }
 
