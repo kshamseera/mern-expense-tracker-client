@@ -49,7 +49,6 @@ const Register = ({history}) => {
         email: "",
         password: ""
     } 
-
     const [userDetails,setUserDetails] = useState(initialFormState)
     const [ errorMessage,setErrorMessage] = useState(null)
     const {dispatch} = useGlobalState()
@@ -87,7 +86,6 @@ const Register = ({history}) => {
     return (
     <div>
       <Card className={classes.card}>
-
         <CardContent>
             <Typography component="p" color="error">{errorMessage && <p>{errorMessage}</p>}</Typography>
             <Typography variant="h6" className={classes.title} fontSize="22px">  

@@ -14,14 +14,12 @@ import {stateContext} from './config/store'
 import {getExpenseFromId,fetchExpenses} from './services/expenseServices'
 import {getAuthenticatedUser} from './services/authServices'
 
-
 const App = () => {
 
   const initialState = {
 	  loggedInUser: null,
 	  expenses: []
   }
-
 
  // Create state reducer store and dispatcher
   const [store, dispatch] = useReducer(stateReducer, initialState) 
