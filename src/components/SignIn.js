@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
+import PersonIcon from '@material-ui/icons/Person'
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -22,6 +24,10 @@ const useStyles = makeStyles(theme => ({
     error: {
       verticalAlign: 'middle',
       color: 'red'
+    },
+    icon: {
+        margin: '35px 10px 0 0',
+        color: theme.palette.action.active,
     },
     title: {
       marginTop: theme.spacing(2),
@@ -86,7 +92,9 @@ const SignIn = ({history}) => {
                     <Typography variant="h6" className={classes.title} fontSize="22px">  
                         Sign In
                     </Typography>
+                    <PersonIcon className={classes.icon} />
                     <TextField id="name" label="Username" className={classes.textField} name= "username" onChange={handleChange} margin="normal"/><br/>
+                    <LockOpenIcon className={classes.icon} />
                     <TextField id="password" label="Password" type="password" className={classes.textField} name= "password" onChange={handleChange} margin="normal"/><br/>
                 </CardContent> 
                 <CardActions>
@@ -94,20 +102,6 @@ const SignIn = ({history}) => {
                 </CardActions>
             </Card>
         </div>
-/*         <form style ={formStyle} data-cy="loginForm" onSubmit={handleSubmit}>
-            {errorMessage && <p>{errorMessage}</p>}
-            <div>
-                <label style ={labelStyle} >Username</label>
-                <input style ={inputStyle}required type="text" name="username" placeholder="Enter a username" data-cy="username" onChange={handleChange}></input>
-            </div>
-            <div>
-                <label style ={labelStyle}>Password</label>
-                <input style ={inputStyle} required type="password" name="password" placeholder="Enter a password" data-cy="password" onChange={handleChange}></input>
-            </div>
-            <div>
-                <button style ={buttonStyle} type="submit" value="Login" data-cy="loginButton">Login</button>
-            </div>   
-        </form> */
     )
 }
 

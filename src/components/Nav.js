@@ -9,8 +9,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
 import AddIcon from '@material-ui/icons/Add'
-import Avatar from '@material-ui/core/Avatar'
-import Person from '@material-ui/icons/Person'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,9 +58,7 @@ const Nav = () => {
                 <Button href="/expenses/all" color="inherit">All Expenses</Button>
                 <Button href="/expenses/new" color="inherit" data-cy="addExpense"><AddIcon style={{marginRight: 4}}/>Add Expense</Button>
                 <Button href="/" color="inherit" onClick={handleLogout} data-cy="logout">Logout
-                    <Avatar>
-                    <Person/>
-                    </Avatar>
+                    <AccountCircleIcon/>
                 </Button>
                 </div>)
                 : (	<div data-cy="navLoggedOut">

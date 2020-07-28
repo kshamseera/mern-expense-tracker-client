@@ -67,26 +67,6 @@ const ExpenseOverview = () => {
         </div>
         </div>  
         </Card>
-    /* // <div style ={formStyle}>
-    //     <div>
-    //         <h3>You have spent</h3>
-    //             <p>${monthTotal}</p> 
-    //             <p>So far this month</p>
-    //     </div>
-    //     <form>
-            
-    //             <label style= {labelStyle} >Today</label>
-    //             <input type ="text" readOnly value ={todayTotal} ></input> 
-            
-    //             <label style= {labelStyle} >Yesterday</label>
-    //             <input type ="text" readOnly value ={yesterdayTotal}></input> 
-            
-    //     </form> 
-    //     <div>
-    //         <Link style= {linkStyles} to ='/expenses/all'>See More</Link>
-    //     </div>   
-    // </div>
-     ); */
     );
 }
  
