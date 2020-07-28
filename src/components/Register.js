@@ -8,6 +8,9 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
+import PersonIcon from '@material-ui/icons/Person'
+import EmailIcon from '@material-ui/icons/Email'
+import LockIcon from '@material-ui/icons/Lock';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -22,6 +25,10 @@ const useStyles = makeStyles(theme => ({
       verticalAlign: 'middle',
       color: 'red'
     },
+    icon: {
+        margin: '35px 10px 0 0',
+        color: theme.palette.action.active,
+      },
     title: {
       marginTop: theme.spacing(2),
       color: theme.palette.openTitle,
@@ -91,8 +98,11 @@ const Register = ({history}) => {
             <Typography variant="h6" className={classes.title} fontSize="22px">  
                 Sign Up
             </Typography>
+            <PersonIcon className={classes.icon} />
             <TextField id="name" label="Username" className={classes.textField} name= "username" onChange={handleChange} margin="normal"/><br/>
+            <EmailIcon className={classes.icon} />
             <TextField id="email" label="Email" type="email" className={classes.textField} name= "email" onChange={handleChange} margin="normal"/><br/>
+            <LockIcon className={classes.icon} />
             <TextField id="password" label="Password" type="password" className={classes.textField} name= "password" onChange={handleChange} margin="normal"/><br/>
         </CardContent> 
         <CardActions>
