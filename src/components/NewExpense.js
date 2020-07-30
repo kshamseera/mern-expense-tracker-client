@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     label: {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
-      fontSize: '1.07em',
+      fontSize: '2em',
       color: grey,
       width: 300
     },
@@ -67,8 +67,9 @@ const NewExpense = ({history}) => {
     const[formState, setFormState] = useState(initialFormState)
     const {store, dispatch} = useGlobalState()
     const {expenses} = store
-   
+
     const classes = useStyles()
+
     function handleChange(event) {
         const name = event.target.name
         const value = event.target.value
