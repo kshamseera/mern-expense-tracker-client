@@ -86,7 +86,7 @@ const SignIn = ({history}) => {
     }
     return (
         <div>
-            <Card className={classes.card}>
+            <Card className={classes.card} data-cy="signInForm">
                 <CardContent>
                     <Typography component="p" color="error">{errorMessage && <p>{errorMessage}</p>}</Typography>
                     <Typography variant="h6" className={classes.title} fontSize="22px">  

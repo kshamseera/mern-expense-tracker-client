@@ -22,14 +22,14 @@ describe('Test login', () => {
     })
     it('Should render SignIn component', () => {
         cy.get('[data-cy=signIn]').click()
-        cy.get('[data-cy=loginForm]')
+        cy.get('[data-cy=signInForm]')
             .should('be.visible')
     })
     it('can login', () => {
         cy.get('[data-cy=signIn]').click()
         cy.get('[data-cy=username]').type(fixtures.registeredUser.username)
         cy.get('[data-cy=password]').type(fixtures.registeredUser.password)
-	    cy.get('[data-cy=loginButton]').click()
+	    cy.get('[data-cy=signInButton]').click()
     })
 })
 
@@ -38,7 +38,7 @@ describe('Test logout', () => {
         cy.get("[data-cy=signIn]").click()
 		    cy.get("[data-cy=username]").type(fixtures.registeredUser.username)
 		    cy.get("[data-cy=password]").type(fixtures.registeredUser.password)
-		    cy.get("[data-cy=loginButton]").click()
+		    cy.get("[data-cy=signInButton]").click()
 		    cy.get('[data-cy=logout]').click()
         cy.get('[data-cy=signIn')
     })

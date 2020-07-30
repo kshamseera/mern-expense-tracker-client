@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import {useGlobalState} from '../config/store'
 import {deleteExpense} from '../services/expenseServices'
-import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
 
