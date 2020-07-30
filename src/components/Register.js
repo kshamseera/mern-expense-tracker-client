@@ -99,14 +99,14 @@ const Register = ({history}) => {
                 Sign Up
             </Typography>
             <PersonIcon className={classes.icon} />
-            <TextField id="name" label="Username" className={classes.textField} name= "username" onChange={handleChange} margin="normal"/><br/>
+            <TextField id="name" label="Username" className={classes.textField} name= "username" data-cy="username" onChange={handleChange} margin="normal"/><br/>
             <EmailIcon className={classes.icon} />
-            <TextField id="email" label="Email" type="email" className={classes.textField} name= "email" onChange={handleChange} margin="normal"/><br/>
+            <TextField id="email" label="Email" type="email" className={classes.textField} name= "email" data-cy="email" onChange={handleChange} margin="normal"/><br/>
             <LockIcon className={classes.icon} />
-            <TextField id="password" label="Password" type="password" className={classes.textField} name= "password" onChange={handleChange} margin="normal"/><br/>
+            <TextField id="password" label="Password" type="password" className={classes.textField} name= "password" data-cy="password" onChange={handleChange} margin="normal"/><br/>
         </CardContent> 
         <CardActions>
-            <Button color="primary" variant="contained" onClick={handleSubmit} className={classes.submit}>Register</Button>
+            <Button color="primary" variant="contained" data-cy="registerButton" onClick={handleSubmit} className={classes.submit}>Register</Button>
        </CardActions>
       </Card>
     </div>

@@ -124,7 +124,7 @@ const EditExpense = ({history, match}) => {
 
     return ( 
         <>
-      <Card className={classes.card}>
+      <Card data-cy="editExpenseForm" className={classes.card}>
         <CardContent>
           <Typography type="headline" component="h2" className={classes.title}>
             Update Expense
@@ -190,7 +190,8 @@ const EditExpense = ({history, match}) => {
             color="primary" 
             variant="contained" 
             onClick={handleSubmit} 
-            className={classes.submit}>Update
+            className={classes.submit}
+            data-cy="updateExpenseButton">Update
           </Button>
           <Button onClick={() => history.push("/expenses/all")} className={classes.submit} variant="contained">Cancel</Button>
         </CardActions>

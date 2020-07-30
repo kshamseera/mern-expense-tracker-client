@@ -58,7 +58,7 @@ const ExpenseOverview = () => {
         <Card className={classes.card}>
           <Typography variant="h4" className={classes.title2} color="textPrimary" style={{textAlign:'center'}}>You've spent</Typography>
         <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-          <Typography component="span" className={classes.totalSpent}>${monthTotal} <span style={{display: 'block', fontSize:'0.3em'}}>So Far This Month</span></Typography>
+          <Typography component="span" data-cy="monthlySpend" className={classes.totalSpent}>${monthTotal} <span style={{display: 'block', fontSize:'0.3em'}}>So Far This Month</span></Typography>
         <div style={{margin:'20px 20px 20px 30px' }}>
           <Typography variant="h5" className={classes.spent} color="primary">${todayTotal} <span className={classes.day}>Today</span></Typography>  
           <Typography variant="h5" className={classes.spent} color="primary">${yesterdayTotal} <span className={classes.day}>Yesterday </span></Typography>
