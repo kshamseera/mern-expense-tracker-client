@@ -59,6 +59,27 @@ const EditExpense = ({history, match}) => {
     const expenseId = match && match.params ? match.params.id : -1
     const expense = getExpenseFromId(expenses, expenseId)
 
+    // Set initial form values to what is in the current expense
+    const initialFormState = {
+        item: "",
+        category: "",
+        amount: "",
+        date: "",
+        notes: ""
+    }
+    const[formState, setFormState] = useState(initialFormState)
+
+    useEffect(() => {
+        // Set the formState to the fields in the expense after mount and when expense changes
+      expense && setFormState ({
+        item: expense.item,
+        category: expense.category ,
+        amount: expense.amount,
+        date: new Date(expense.date),
+        notes: expense.notes 
+      })
+    },[expense])
+
     function handleChange(event) {
         const name = event.target.name
         const value = event.target.value
@@ -90,34 +111,12 @@ const EditExpense = ({history, match}) => {
                 type: "setExpenses",
                 data: [changeExpense, ...otherExpense]
             })
-            history.push(`/expenses/${expense._id}`)
+            history.push(`/expenses/all`)
         }).catch((error) => {
             console.log("caught error on edit", error)
         })
         
     }
-// Set initial form values to what is in the current expense
-    const initialFormState = {
-        item: "",
-        category: "",
-        amount: "",
-        date: "",
-        notes: ""
-    }
-    const[formState, setFormState] = useState(initialFormState)
-
-    useEffect(() => {
-        // Set the formState to the fields in the expense after mount and when expense changes
-      expense && setFormState ({
-        item: expense.item,
-        category: expense.category ,
-        amount: expense.amount,
-        date: new Date(expense.date),
-        notes: expense.notes 
-      })
-    },[expense])
-
-    
 
     return ( 
         <>

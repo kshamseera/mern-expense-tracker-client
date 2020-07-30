@@ -1,4 +1,5 @@
 import React from 'react';
+import {useHistory} from 'react-router-dom'
 import {useGlobalState} from '../config/store'
 import {logoutUser} from '../services/authServices'
 import { makeStyles } from '@material-ui/core'
@@ -24,8 +25,10 @@ const useStyles = makeStyles((theme) => ({
    }))
 
 const Nav = () => {
+    const history = useHistory()
     const classes = useStyles()
-
+    const {store, dispatch} = useGlobalState()
+    const {loggedInUser} = store
     // Logout user
     function handleLogout() {
         logoutUser().then((response) => {
@@ -38,32 +41,34 @@ const Nav = () => {
             type: "setLoggedInUser",
             data: null
         })
+        history.push('/')
     }
 
-    const {store, dispatch} = useGlobalState()
-    const {loggedInUser} = store
-
+    function redirectToHome() {
+        history.push('/')
+    }
+    
     return ( 
         <div className={classes.root} data-cy="navbar">
         <AppBar position="static">
             <Toolbar>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" href="/">
+                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={redirectToHome}>
                     <HomeIcon/>
                 </IconButton>
+                <Button  color="inherit" onClick={redirectToHome} >Expense Tracker</Button>
                 <Typography variant="h6" className={classes.title}>
                 </Typography>
                 {loggedInUser 
                 ? (	<div data-cy="navLoggedIn">
-                {/* <span style={space}>{loggedInUser}</span> */}
-                <Button href="/expenses/all" color="inherit">All Expenses</Button>
-                <Button href="/expenses/new" color="inherit" data-cy="addExpense"><AddIcon style={{marginRight: 4}}/>Add Expense</Button>
-                <Button href="/" color="inherit" onClick={handleLogout} data-cy="logout">Logout
+                <Button onClick={() => history.push("/expenses/all") } color="inherit">All Expenses</Button>
+                <Button onClick={() => history.push("/expenses/new")} color="inherit" data-cy="addExpense"><AddIcon style={{marginRight: 4}}/>Add Expense</Button>
+                <Button color="inherit" onClick={handleLogout} data-cy="logout">Logout
                     <AccountCircleIcon/>
                 </Button>
                 </div>)
                 : (	<div data-cy="navLoggedOut">
-                <Button href="/auth/register" color="inherit" data-cy="signUp">SignUp</Button>
-                <Button href="/auth/login" color="inherit" data-cy="signIn">SignIn</Button>
+                <Button onClick={() => history.push("/auth/register")} color="inherit" data-cy="signUp">SignUp</Button>
+                <Button onClick={() => history.push("/auth/login")} color="inherit" data-cy="signIn">SignIn</Button>
                  </div>)
                }   
             </Toolbar>

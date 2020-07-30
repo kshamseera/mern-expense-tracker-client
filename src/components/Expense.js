@@ -1,9 +1,8 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import Edit from '@material-ui/icons/Edit'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
@@ -11,6 +10,7 @@ import {useGlobalState} from '../config/store'
 import {deleteExpense} from '../services/expenseServices'
 
 const useStyles = makeStyles(theme => ({
+
     root: {
         width: '90%',
         maxWidth: '700px',
@@ -22,14 +22,12 @@ const useStyles = makeStyles(theme => ({
       fontSize: '1.5em',
       fontWeight: theme.typography.fontWeightRegular,
       marginTop: 12,
-      marginBottom: 4
+      marginBottom: 4,
+      textTransform:'capitalize'
     },
     info: {
         marginRight: 32,
         width: 90
-    },
-    notes: {
-      color: 'grey'
     },
     panel: {
       border: '1px solid black',
@@ -39,25 +37,22 @@ const useStyles = makeStyles(theme => ({
       fontSize: '2em',
       color: '#2bbd7e',
     },
-    textField: {
-      margin:'8px 16px',
-      width:240
-    },
     date: {
         fontSize: '1.1em',
-        color: '#8b8b8b',
+        color: 'black',
         marginTop: 4
     }
   }))
 
 const Expense = ({history, expense, showControls}) => {
-    const classes = useStyles()
+    const {item, amount, date, category, notes} = expense
     const {store, dispatch} = useGlobalState()
     const {expenses, loggedInUser} = store
+    
+    const classes = useStyles()
+
     // where no expenses exist, return null
     if (!expense) return null
-
-    const {item, amount, date, category, notes} = expense
     const allowEditDelete = loggedInUser && loggedInUser === expense.username
     
    //Handle delete button
@@ -84,41 +79,34 @@ const Expense = ({history, expense, showControls}) => {
 
     return (
         <div className={classes.root}>
-        <ExpansionPanel className={classes.panel}>
+      
+        <ExpansionPanel className={classes.panel} >
           <ExpansionPanelSummary
-            expandIcon={<Edit />}
+            expandIcon={<ExpandMoreIcon />}
           >
             <div className={classes.info}>
                 <Typography className={classes.amount}>${amount}</Typography><Divider style={{marginTop: 4, marginBottom: 4}}/>
-                <Typography>
-                    {category}
-                </Typography>
                 <Typography className={classes.date}>{new Date(date).toLocaleDateString()}</Typography>  
             </div>
             <div>
                 <Typography className={classes.heading}>{item}</Typography>
-                <Typography className={classes.notes}>
-                    {notes}
-                </Typography>
             </div>
           </ExpansionPanelSummary>
-
-          </ExpansionPanel>
-
-
-        {/* <Link style={linkStyles} to={`/expenses/${expense._id}`}>
-            <h1>{item}</h1>
-        </Link>
-            <p>${amount}</p>
-            <p>{new Date(date).toLocaleDateString()}</p>
-            <p>{category}</p>
-            <p>{notes}</p>
+            <Divider />
+          <ExpansionPanelDetails style={{display: 'block'}}>
+            <Typography component="p" > Item: {item}</Typography>
+            <Typography component="p" > Amount: ${amount}</Typography>
+            <Typography component="p" >Date: {new Date(date).toLocaleDateString()}</Typography>
+            <Typography component="p" >Category: {category}</Typography>
+            <Typography component="p"  >Description: {notes}</Typography> 
             {showControls && allowEditDelete && (
                 <div>
                 <button onClick={handleDelete}>Delete</button>
                 <button onClick={handleEdit}>Edit</button>
                 </div>
-            )} */}
+            )}
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
         </div>
     )
 }
