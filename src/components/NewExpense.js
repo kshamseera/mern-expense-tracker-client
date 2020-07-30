@@ -1,58 +1,72 @@
 import React, { useState } from 'react'
+import {Link} from 'react-router-dom'
 import DatePicker from 'react-date-picker'
 import {useGlobalState} from '../config/store'
 import {addExpense} from '../services/expenseServices'
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import { grey } from '@material-ui/core/colors'
+
+const useStyles = makeStyles(theme => ({
+    card: {
+      maxWidth: 600,
+      margin: 'auto',
+      textAlign: 'center',
+      marginTop: theme.spacing(5),
+      paddingBottom: theme.spacing(2),
+      backgroundColor: "#E8EAF6"
+    },
+    error: {
+      verticalAlign: 'middle'
+    },
+    title: {
+      marginTop: theme.spacing(2),
+      color: theme.palette.openTitle,
+      fontSize: '1em'
+    },
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: 300
+    },
+    label: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      fontSize: '1.07em',
+      color: grey,
+      width: 300
+    },
+    submit: {
+      margin: 'auto',
+      marginBottom: theme.spacing(2)
+    },
+    input: {
+      display: 'none'
+    },
+    filename:{
+      marginLeft:'10px'
+    }
+  }))
 
 const NewExpense = ({history}) => {
-    console.log("New expense")
-    const formStyle= {
-        maxWidth : "500px",
-        margin: "2rem auto",
-        border: "2px solid black",
-        padding: "2rem",
-        fontFamily: "sanSerif",
-        backgroundColor: "white",
-        transform: "translate(-50% -50%)",
-        // width: "400px",
-        // height:"500px",
-        // padding: "80px 40px
+    const initialFormState = {
+        item: "",
+        category: "",
+        amount: "",
+        date: new Date(),
+        notes: ""
     }
-    const labelStyle ={
-        display:"block",
-        padding:"1rem 0 .5rem 0",
-        fontSize:"22px",
-        color:"brown"
-    }
-
-    const inputStyle ={
-        display: "block",
-        width: "100%",
-        // border: "2px solid #298089",
-        border:"none",
-        padding:".5rem",
-        fontSize: "18px",
-        borderRadius: "5px",
-        // background: "transparent",
-        borderBottom:"1px solid #fff",
-        // outline:"none"
-
-    }
-    const buttonStyle ={
-        display: "block",
-        border:"0",
-        width:"auto",
-        borderRadius: "5px",
-        background: "#343050",
-        fontSize: "20px",
-        padding: ".5rem",
-        color: "white",
-        margin:".5rem 0",
-        cursor: "pointer",
-        outline:"none"
-    }
-
+    const[formState, setFormState] = useState(initialFormState)
+    const {store, dispatch} = useGlobalState()
+    const {expenses} = store
+   
+    const classes = useStyles()
     function handleChange(event) {
-        // console.log("event" , event)
         const name = event.target.name
         const value = event.target.value
         setFormState({
@@ -60,15 +74,12 @@ const NewExpense = ({history}) => {
              [name]:value 
         })
     }
-
     function handleDateChange(date) {
-        // console.log(typeof date)
         setFormState({
             ...formState,
             date: date
         })
     }
-
     function handleSubmit (event) {
         event.preventDefault()
         const newExpense = {
@@ -87,60 +98,87 @@ const NewExpense = ({history}) => {
         }).catch ((error) => {
             console.log("Caught an error on server adding a expense", error)
         })
-
     }
-
-    const initialFormState = {
-        item: "",
-        category: "",
-        amount: "",
-        date: "",
-        notes: ""
-    }
-    const[formState, setFormState] = useState(initialFormState)
-    const {store, dispatch} = useGlobalState()
-    const {expenses} = store
-   
     return ( 
-        <>
-        <form style = {formStyle} onSubmit = {handleSubmit}>
-            <div>
-                <h2>Add Expense</h2>
-            </div>
-            <div>
-               <label style ={labelStyle}>Item Name</label>
-               <input style = {inputStyle} type ="text"  required name="item" data-cy="inputItem" value={formState.item} onChange = {handleChange} />
-            </div>
-            <div>
-               <label style = {labelStyle}>Category</label>
-               <input style = {inputStyle}  type ="text"  required name="category" data-cy="inputCategory" value={formState.category} onChange = {handleChange} />
-            </div>
-            <div>
-               <label style = {labelStyle}>Amount</label>
-               <input style = {inputStyle}  type ="number"  required name="amount" placeholder ="$" data-cy="inputAmount" value={formState.amount} onChange = {handleChange} />
-            </div>
-            <div>
-               <label style = {labelStyle}>Date</label>
-               <DatePicker
-                  dateFormat = {["year", "month", "date"]}
-                  value = {formState.date}
-                  name ="date"
-                  onChange = {handleDateChange}
-                  style = {inputStyle}
-                  data-cy="datePicker" 
-               />
-            </div>
-            <div>
-               <label style = {labelStyle} >Description</label>
-               <input style = {inputStyle}  type ="text" name="notes"  data-cy="inputNotes" value={formState.notes} onChange = {handleChange} />
-            </div>
-            <div>
-            <button style = {buttonStyle}  type ="submit" >Add Expense</button>
-            </div>
-        </form>
-
-        </>
-     );
+        <div>
+      <Card className={classes.card}>
+        <CardContent>
+          <Typography type="headline" component="h2" className={classes.title}>
+            Add Expense
+          </Typography>
+          <br/>
+          <TextField 
+            id="item"
+            name="item" 
+            label="Item" 
+            required 
+            data-cy="inputItem" 
+            className={classes.textField} 
+            value={formState.item} 
+            onChange={handleChange}
+            margin="normal"/><br/>
+          <TextField 
+            id="category" 
+            name="category"
+            label="Category"
+            data-cy="inputCategory" 
+            required 
+            className={classes.textField} 
+            onChange={handleChange} 
+            margin="normal"/><br/>
+          <TextField 
+            id="amount" 
+            name="amount"
+            label="Amount ($)" 
+            required 
+            data-cy="inputAmount" 
+            className={classes.textField} 
+            onChange={handleChange} 
+            margin="normal" 
+            type="number"/>
+          <br/>
+          <br/>
+          <Typography className={classes.label}>
+            Date *
+          </Typography>
+          <DatePicker
+            dateFormat = {["year", "month", "date"]}
+            value = {formState.date}
+            name ="date"
+            onChange = {handleDateChange}
+            className={classes.textField}
+            data-cy="datePicker" 
+          />
+          <br/>
+          <br/>
+          <TextField
+            id="description"
+            name="description"
+            label="Description"
+            multiline
+            rows="2"
+            onChange={handleChange}
+            className={classes.textField}
+            margin="normal"
+            data-cy="inputNotes"
+          />
+          <br/>
+          <br/>
+        </CardContent>
+        <CardActions>
+          <Button 
+            color="primary" 
+            variant="contained" 
+            onClick={handleSubmit} 
+            className={classes.submit}>Submit
+          </Button>
+          <Link to='/' className={classes.submit}>
+            <Button variant="contained">Cancel</Button>
+          </Link>
+        </CardActions>
+      </Card>
+    </div>
+    )
 }
  
-export default NewExpense;
+export default NewExpense
