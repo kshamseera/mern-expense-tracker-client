@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import {useGlobalState} from '../config/store'
 import {deleteExpense} from '../services/expenseServices'
+import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
 
@@ -65,7 +66,7 @@ const Expense = ({history, expense, showControls}) => {
                 type: "setExpenses",
                 data: updatedExpenses
             })
-            history.push("/")
+            history.push("/expenses/all")
         }).catch((error) => {
             console.log("error deleting expense", error)
         })
@@ -94,15 +95,15 @@ const Expense = ({history, expense, showControls}) => {
           </ExpansionPanelSummary>
             <Divider />
           <ExpansionPanelDetails style={{display: 'block'}}>
-            <Typography component="p"> Item: {item}</Typography>
+            <Typography component="p" > Item: {item}</Typography>
             <Typography component="p"> Amount: ${amount}</Typography>
             <Typography component="p">Date: {new Date(date).toLocaleDateString()}</Typography>
             <Typography component="p">Category: {category}</Typography>
             <Typography component="p" >Description: {notes}</Typography> 
             {showControls && allowEditDelete && (
                 <div>
-                <button onClick={handleDelete}>Delete</button>
-                <button onClick={handleEdit}>Edit</button>
+                <button onClick={handleDelete} data-cy="deleteButton">Delete</button>
+                <button onClick={handleEdit} data-cy="editButton">Edit</button>
                 </div>
             )}
           </ExpansionPanelDetails>

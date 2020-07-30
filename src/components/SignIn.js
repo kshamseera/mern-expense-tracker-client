@@ -93,12 +93,12 @@ const SignIn = ({history}) => {
                         Sign In
                     </Typography>
                     <PersonIcon className={classes.icon} />
-                    <TextField id="name" label="Username" className={classes.textField} name= "username" onChange={handleChange} margin="normal"/><br/>
+                    <TextField id="name" label="Username" data-cy="username" className={classes.textField} name= "username" onChange={handleChange} margin="normal"/><br/>
                     <LockOpenIcon className={classes.icon} />
-                    <TextField id="password" label="Password" type="password" className={classes.textField} name= "password" onChange={handleChange} margin="normal"/><br/>
+                    <TextField id="password" label="Password" type="password" data-cy="password" className={classes.textField} name= "password" onChange={handleChange} margin="normal"/><br/>
                 </CardContent> 
                 <CardActions>
-                    <Button color="primary" variant="contained" onClick={handleSubmit} className={classes.submit}>Sign In</Button>
+                    <Button color="primary" variant="contained" data-cy="signInButton" onClick={handleSubmit} className={classes.submit}>Sign In</Button>
                 </CardActions>
             </Card>
         </div>

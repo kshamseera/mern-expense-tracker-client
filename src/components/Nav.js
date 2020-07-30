@@ -52,7 +52,7 @@ const Nav = () => {
         <div className={classes.root} data-cy="navbar">
         <AppBar position="static">
             <Toolbar>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={redirectToHome}>
+                <IconButton edge="start" data-cy="home" className={classes.menuButton} color="inherit" aria-label="menu" onClick={redirectToHome}>
                     <HomeIcon/>
                 </IconButton>
                 <Button  color="inherit" onClick={redirectToHome} >Expense Tracker</Button>
@@ -60,7 +60,7 @@ const Nav = () => {
                 </Typography>
                 {loggedInUser 
                 ? (	<div data-cy="navLoggedIn">
-                <Button onClick={() => history.push("/expenses/all") } color="inherit">All Expenses</Button>
+                <Button onClick={() => history.push("/expenses/all") } color="inherit" data-cy="allExpenses">All Expenses</Button>
                 <Button onClick={() => history.push("/expenses/new")} color="inherit" data-cy="addExpense"><AddIcon style={{marginRight: 4}}/>Add Expense</Button>
                 <Button color="inherit" onClick={handleLogout} data-cy="logout">Logout
                     <AccountCircleIcon/>
