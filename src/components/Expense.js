@@ -94,11 +94,11 @@ const Expense = ({history, expense, showControls}) => {
           </ExpansionPanelSummary>
             <Divider />
           <ExpansionPanelDetails style={{display: 'block'}}>
-            <Typography component="p" > Item: {item}</Typography>
-            <Typography component="p" > Amount: ${amount}</Typography>
-            <Typography component="p" >Date: {new Date(date).toLocaleDateString()}</Typography>
-            <Typography component="p" >Category: {category}</Typography>
-            <Typography component="p"  >Description: {notes}</Typography> 
+            <Typography component="p"> Item: {item}</Typography>
+            <Typography component="p"> Amount: ${amount}</Typography>
+            <Typography component="p">Date: {new Date(date).toLocaleDateString()}</Typography>
+            <Typography component="p">Category: {category}</Typography>
+            <Typography component="p" >Description: {notes}</Typography> 
             {showControls && allowEditDelete && (
                 <div>
                 <button onClick={handleDelete}>Delete</button>

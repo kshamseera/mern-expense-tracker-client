@@ -1,59 +1,63 @@
 import React, { useState, useEffect } from 'react';
-import DatePicker from 'react-date-picker'
 import {useGlobalState} from '../config/store'
 import { getExpenseFromId,updateExpense } from '../services/expenseServices';
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import { grey } from '@material-ui/core/colors'
+import DateFnsUtils from '@date-io/date-fns';
+import {MuiPickersUtilsProvider, DatePicker,} from '@material-ui/pickers';
+
+const useStyles = makeStyles(theme => ({
+    card: {
+      maxWidth: 600,
+      margin: 'auto',
+      textAlign: 'center',
+      marginTop: theme.spacing(5),
+      paddingBottom: theme.spacing(2),
+      backgroundColor: "#E8EAF6"
+    },
+    error: {
+      verticalAlign: 'middle'
+    },
+    title: {
+      marginTop: theme.spacing(2),
+      color: theme.palette.openTitle,
+      fontSize:"24px",
+      fontWeight:"bold",
+      textTransform:"uppercase",
+      fontFamily: "Roboto"
+    },
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: 300
+    },
+    label: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      fontSize: '2em',
+      color: grey,
+      width: 300
+    },
+    submit: {
+      margin: 'auto',
+      marginBottom: theme.spacing(2)
+    },
+    input: {
+      display: 'none'
+    },
+    filename:{
+      marginLeft:'10px'
+    }
+  }))
 
 const EditExpense = ({history, match}) => {
-
-    const formStyle= {
-        maxWidth : "500px",
-        margin: "2rem auto",
-        border: "2px solid black",
-        padding: "2rem",
-        fontFamily: "sanSerif",
-        backgroundColor: "white",
-        // position: "relative",
-        // left:"50%",
-        // top:"50%",
-        transform: "translate(-50% -50%)",
-        // width: "400px",
-        // height:"500px",
-        // padding: "80px 40px
-    }
-    const labelStyle ={
-        display:"block",
-        padding:"1rem 0 .5rem 0",
-        fontSize:"22px",
-        color:"brown"
-    }
-
-    const inputStyle ={
-        display: "block",
-        width: "100%",
-        // border: "2px solid #298089",
-        border:"none",
-        padding:".5rem",
-        fontSize: "18px",
-        borderRadius: "5px",
-        background: "transparent",
-        borderBottom:"1px solid #fff",
-        outline:"none"
-
-    }
-    const buttonStyle ={
-        display: "block",
-        border:"0",
-        width:"auto",
-        borderRadius: "5px",
-        background: "#343050",
-        fontSize: "20px",
-        padding: ".5rem",
-        color: "white",
-        margin:".5rem 0",
-        cursor: "pointer",
-        outline:"none"
-    }
-
+    const classes = useStyles()
     const {store, dispatch} = useGlobalState()
     const {expenses} = store
     const expenseId = match && match.params ? match.params.id : -1
@@ -64,7 +68,7 @@ const EditExpense = ({history, match}) => {
         item: "",
         category: "",
         amount: "",
-        date: "",
+        date: new Date(),
         notes: ""
     }
     const[formState, setFormState] = useState(initialFormState)
@@ -120,43 +124,78 @@ const EditExpense = ({history, match}) => {
 
     return ( 
         <>
-        <form style = {formStyle} onSubmit = {handleSubmit}>
-            <div>
-                <h2>Edit Expense</h2>
-            </div>
-            <div>
-               <label style = {labelStyle} >Item Name</label>
-               <input style = {inputStyle}  type ="text"  required name="item"  value={formState.item} onChange = {handleChange} />
-            </div>
-            <div>
-               <label style = {labelStyle} >Category</label>
-               <input style = {inputStyle}  type ="text"  required name="category"  value={formState.category} onChange = {handleChange} />
-            </div>
-            <div>
-               <label style = {labelStyle} >Amount</label>
-               <input style = {inputStyle}  type ="number"  required name="amount"  value={formState.amount} onChange = {handleChange} />
-            </div>
-            <div>
-               <label style = {labelStyle} >Date</label>
-               <DatePicker 
-                  dateFormat = {["year", "month", "date"]}
-                  value = {formState.date}
-                  name ="date"
-                  onChange = {handleDateChange}
-                  style = {inputStyle} 
-               />
-               {/* <input type ="text"  required name="date" value={formState.date} onChange = {handleChange} /> */}
-            </div>
-            <div>
-               <label style = {labelStyle} >Description</label>
-               <input style = {inputStyle}  type ="text" name="notes"  value={formState.notes} onChange = {handleChange} />
-            </div>
-            <div>
-            <button style = {buttonStyle}  type ="submit" >Update Expense</button>
-            </div>
-        </form>
-
-        </>
+      <Card className={classes.card}>
+        <CardContent>
+          <Typography type="headline" component="h2" className={classes.title}>
+            Update Expense
+          </Typography>
+          <br/>
+          <TextField 
+            id="item"
+            name="item" 
+            label="Item" 
+            className={classes.textField} 
+            value={formState.item} 
+            onChange={handleChange}
+            margin="normal"/><br/>
+          <TextField 
+            id="category" 
+            name="category"
+            label="Category"
+            value={formState.category} 
+            className={classes.textField} 
+            onChange={handleChange} 
+            margin="normal"/><br/>
+          <TextField 
+            id="amount" 
+            name="amount"
+            label="Amount ($)" 
+            value={formState.amount} 
+            className={classes.textField} 
+            onChange={handleChange} 
+            margin="normal" 
+            type="number"/>
+          <br/>
+          <br/>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <DatePicker
+            format="dd/MM/yyyy"
+            label="Date"
+            className={classes.textField}
+            views={["year", "month", "date"]}
+            value = {formState.date}
+            name ="date"
+            onChange = {handleDateChange}
+            showTodayButton
+         />
+         </MuiPickersUtilsProvider>
+          <br/>
+          <br/>
+          <TextField
+            id="description"
+            name="description"
+            label="Description"
+            value={formState.notes}
+            multiline
+            rows="2"
+            onChange={handleChange}
+            className={classes.textField}
+            margin="normal"
+          />
+         <br/>
+         <br/>
+        </CardContent>
+        <CardActions>
+          <Button 
+            color="primary" 
+            variant="contained" 
+            onClick={handleSubmit} 
+            className={classes.submit}>Update
+          </Button>
+          <Button onClick={() => history.push("/expenses/all")} className={classes.submit} variant="contained">Cancel</Button>
+        </CardActions>
+      </Card>
+    </>
      );
 }
  

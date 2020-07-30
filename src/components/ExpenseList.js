@@ -98,8 +98,11 @@ const ExpenseList = () => {
             showTodayButton
          />
         </MuiPickersUtilsProvider>
-        <Button variant="contained" color="primary" onClick ={handleSubmit} >
-           Search
+        <Button 
+            variant="contained" 
+            color="primary" 
+            onClick ={handleSubmit} >
+            Search
         </Button>
        </div>
         <div>
