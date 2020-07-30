@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import {Link} from 'react-router-dom'
-import DatePicker from 'react-date-picker'
 import {useGlobalState} from '../config/store'
 import {addExpense} from '../services/expenseServices'
 import Card from '@material-ui/core/Card'
@@ -11,6 +9,8 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors'
+import DateFnsUtils from '@date-io/date-fns';
+import {MuiPickersUtilsProvider, DatePicker,} from '@material-ui/pickers';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -27,7 +27,10 @@ const useStyles = makeStyles(theme => ({
     title: {
       marginTop: theme.spacing(2),
       color: theme.palette.openTitle,
-      fontSize: '1em'
+      fontSize:"24px",
+      fontWeight:"bold",
+      textTransform:"uppercase",
+      fontFamily: "Roboto"
     },
     textField: {
       marginLeft: theme.spacing(1),
@@ -138,17 +141,19 @@ const NewExpense = ({history}) => {
             type="number"/>
           <br/>
           <br/>
-          <Typography className={classes.label}>
-            Date *
-          </Typography>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <DatePicker
-            dateFormat = {["year", "month", "date"]}
-            value = {formState.date}
-            name ="date"
-            onChange = {handleDateChange}
+            format="dd/MM/yyyy"
+            label="Date"
+            required
             className={classes.textField}
-            data-cy="datePicker" 
-          />
+            views={["year", "month", "date"]}
+            value={formState.date}
+            onChange={handleDateChange}
+            data-cy="datePicker"
+            showTodayButton
+         />
+         </MuiPickersUtilsProvider>
           <br/>
           <br/>
           <TextField
@@ -172,9 +177,7 @@ const NewExpense = ({history}) => {
             onClick={handleSubmit} 
             className={classes.submit}>Submit
           </Button>
-          <Link to='/' className={classes.submit}>
-            <Button variant="contained">Cancel</Button>
-          </Link>
+          <Button onClick={() => history.push("/")} className={classes.submit} variant="contained">Cancel</Button>
         </CardActions>
       </Card>
     </div>
