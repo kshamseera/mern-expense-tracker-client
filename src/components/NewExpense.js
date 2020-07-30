@@ -105,7 +105,7 @@ const NewExpense = ({history}) => {
     }
     return ( 
         <div>
-      <Card className={classes.card}>
+      <Card className={classes.card} data-cy="addExpenseForm">
         <CardContent>
           <Typography type="headline" component="h2" className={classes.title}>
             Add Expense
@@ -176,7 +176,9 @@ const NewExpense = ({history}) => {
             color="primary" 
             variant="contained" 
             onClick={handleSubmit} 
-            className={classes.submit}>Submit
+            className={classes.submit}
+            data-cy="addExpenseButton"
+            >Submit
           </Button>
           <Button onClick={() => history.push("/")} className={classes.submit} variant="contained">Cancel</Button>
         </CardActions>

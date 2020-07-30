@@ -24,7 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "run-cypress": "CYPRESS_RECORD_KEY=1d0db088-e321-4ee5-8ab5-d2214c152680 node_modules/.bin/cypress run --record --browser chrome"
+    "run-cypress": "CYPRESS_RECORD_KEY=7b8c5c20-77eb-49aa-a55a-5d0a7d4eecd8 node_modules/.bin/cypress run --record --browser chrome"
   },
   "eslintConfig": {
     "extends": "react-app"
