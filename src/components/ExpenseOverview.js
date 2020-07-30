@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
     card: {
       maxWidth: 800,
       margin: 'auto',
-      marginTop: theme.spacing(20),
+      marginTop: theme.spacing(15),
       marginBottom: theme.spacing(10),
       backgroundColor: "#E8EAF6"
     },
@@ -45,10 +45,10 @@ const useStyles = makeStyles(theme => ({
   }))
 
 const ExpenseOverview = () => {
-    const classes = useStyles()
-    
     const {store} = useGlobalState()
     const {expenses} =store
+    
+    const classes = useStyles()
 
     const monthTotal =getMonthTotal(expenses)
     const todayTotal = getTodayTotal(expenses)

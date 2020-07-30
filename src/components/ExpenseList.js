@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
+import { useHistory} from 'react-router-dom'
 import Expense from './Expense'
-// import DatePicker from 'react-date-picker'
 import {useGlobalState} from '../config/store'
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'
@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     },
     textField: {
       margin:'8px 16px',
-      width:230,
+      width:240,
       fontcolor:"black"
     },
     error: {
@@ -33,15 +33,15 @@ const useStyles = makeStyles(theme => ({
   }))
 
 const ExpenseList = () => {
-    const classes = useStyles()
+    const history = useHistory()
     const {store} = useGlobalState()
     const {expenses} = store
+    const classes = useStyles()
 
     const initialFormState = {
-        fromDate: "",
-        toDate: ""
+        fromDate: new Date(),
+        toDate: new Date()
     }
-
     const[formDate, setFormDate] = useState(initialFormState)
     const[displayExpenses,setDisplayExpenses] = useState(expenses)
     const[message,setMessage] = useState(null)
@@ -104,30 +104,9 @@ const ExpenseList = () => {
        </div>
         <div>
         <Typography component="p" color="error">{message && <p>{message}</p>}</Typography>
-            {displayExpenses.sort((a,b) => b.date - a.date).map((expense) => <Expense key={expense._id} expense={expense} />)} 
+            {displayExpenses.sort((a,b) => b.date - a.date).map((expense) => <Expense key={expense._id} expense={expense} history={history} showControls/>)} 
         </div>
       </div>
-                /* <form style ={formStyle} onSubmit ={handleSubmit}>
-                    <label style = {labelStyle} >Records From</label>
-                    <DatePicker 
-                        dateFormat = {["year", "month", "date"]}
-                        name ="fromdate"
-                        value={formDate.fromDate}
-                        onChange = {handleFromDateChange}
-                        style = {inputStyle} 
-                    />
-                    <label style = {labelStyle} >Records To</label>
-                    <DatePicker 
-                        dateFormat = {["year", "month", "date"]}
-                        name ="todate"
-                        value={formDate.toDate}
-                        onChange = {handleToDateChange}
-                        style = {inputStyle} 
-                    />  
-                    <input type ="submit" style ={buttonStyle} value ="Search" ></input>  
-                </form> */
-            
-     
     )
 }
 
