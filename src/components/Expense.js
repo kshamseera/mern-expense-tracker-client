@@ -65,7 +65,7 @@ const Expense = ({history, expense, showControls}) => {
                 type: "setExpenses",
                 data: updatedExpenses
             })
-            history.push("/expenses/all")
+            history.push("/")
         }).catch((error) => {
             console.log("error deleting expense", error)
         })
