@@ -5,16 +5,15 @@
 #### Run Instructions
 * Client Side: run ```yarn start``` on terminal.
 * Server Side: run ```npm run server``` on terminal.
-* Cypress Start on client: run ```npx cypress:open``` on terminal.
+* Cypress Start on client: run ```npx cypress open``` on terminal.
 ---
 #### R1 - Well Designed Code
 
 ##### **Modules**
-
-The code files for the application is separated into two,that are linked to two separate Github repositories, expense-tracker-client and expense-tracker-server.
+The code files for the application is separated into two, that are linked to two separate Github repositories, expense-tracker-client and expense-tracker-server.
 
 ###### Front-end
-![client-module-screenshot](/docs/modules-screenshots/client-modules.png)
+![client-module-screenshot](./docs/modules-screenshots/client-modules.png)
 
 The front end code is categorised into folders based on their purpose:
 * The assets folder contains images.
@@ -23,12 +22,13 @@ The front end code is categorised into folders based on their purpose:
 * The config folder contains global states and api files.
 * The data folder contains some dummy data.
 * The services folder contains three different files for authentication,user and expense. These files handles all the functions which are reused throughout the application.
+
 ###### Back-end
-![server-module-screenshot](/docs/modules-screenshots/server-module.png)
+![server-module-screenshot](./docs/modules-screenshots/server-module.png)
 
 The back end code is categorised into different folders based on their purpose:
 * The config folder contains the passport configuration.
-* The utils folder contains all the utility functions, that are separeted into different files according to their functionalities.
+* The utils folder contains all the utility functions, that are separated into different files according to their functionalities.
 * The controllers folder contains code where  Express interacts with the MongoDB Atlas database to store and retrieve data. Controllers are grouped by the functionality/page. For example add expense,delete expense,update expense and read expenses are contained in the expense-controller file.
 * The models folder contains the mongoose schema for each collection.
 * The routes folder contains the routes used by the Express routers. The routers are grouped by page/functionality. For example all expense routes are contained in the expense-routes file.
@@ -56,31 +56,56 @@ During the coding process we used the user stories as a basis for the code contr
 
 Functions and objects are used extensively throughout the application. Each component is written as a functional component with the functionality for that page. The following structure is usually followed:
 
-a) Functional component name
-b) Used ```useState``` to manage the state of the object.
-c) Used ``useEffect`` to fetch data from the MongoDB database and render it on the page
-d) Functions to control page functionality. For example,a function to handle the form submission.
-e)Export that function to display the contents of the page through rendring from other components.
+- a) Functional component name
+- b) Used ```useState``` to manage the state of the object.
+- c) Used ``useEffect`` to fetch data from the MongoDB database and render it on the page
+- d) Functions to control page functionality. For example,a function to handle the form submission.
+- e)Export that function to display the contents of the page through rendering from other components.
 
 For example, when a newExpense form is completed in the front end, a new expense object is created from the values of the form. The object is then saved as a document in the corresponding collection via a HTTP request to the back end.
 
 ---
 #### R2 - Employ and utilise proper source control methodology (git)
 
-Through out our project, we followed the git feature branch workflow. To make it happen, initially we created a central repository and ```master``` represents the official project history. Instead of committing directly on the local master branch, we created new branches every time we start work on a new feature. So we can edit, stage, and commit changes to the feature branch. Once we finished with the feature branch, we pushed to the central repository in github. To get feedback on the new feature branch, we created a pull request in github. Then one of us make sure everything is good to go before merging.
+Through out this project, out team followed the git feature branch workflow. Initially a central repository  was created and ```master``` represents the official project history. New feature branches were created every time we start work on a new feature. So we can edit, stage, and commit changes to the feature branch. Once we finished with the feature branch, we pushed to the central repository in github. To get feedback on the new feature branch, we created a pull request in github. Pull requests were reviewed by a team member other than the creator, to ensure shared workload, and keep all team members across changes in code. Where changes were required, the team worked together to resolve, otherwise the merge was conducted. 
 
-When merge conflicts arises we will verbally check with the person whose code is causing the conflicts to determine the resolution. Once resolve the conflicts again raise new pull request. When pull request is approved and conflict-free, we added our code to the master branch.
+In the event of merge conflicts, the team verbally checked with the person whose code is causing the conflicts to determine the resolution. Once resolve the conflicts again raise new pull request. When pull request is approved and conflict-free, we added our code to the master branch.
 
 ---
 #### R3	- Use a recognised project management methodology
-We used trello for the project management. Where created different cards like ```todo```, ```in progress``` and ```completed``` for managing our application. Where we added checklists, due time and name of the member who is handling that story.
+Trello was used as a tool for project management. Lists including: ```todo```,  ```in progress``` and ```completed``` were used, upon which cards were created for managing the development of the application. Properties such as checklists, due time and name of the member who is handling that story/card were used throughout.
 
-**Screenshots:**
+**Screenshots:** <br>
+11/07/2020 <br>
+![trello-200711](./docs/project-management/trello-200711.png) <br>
+![trello-200711](./docs/project-management/trello-200711a.png) <br>
+![trello-200711](./docs/project-management/trello-200711b.png) <br>
+
+16/07/2020 <br>
+![trello-200716](./docs/project-management/trello-200716.png) <br>
+
+17/07/2020 <br>
+![trello-200717](./docs/project-management/trello-200717.png) <br>
+![trello-200717](./docs/project-management/trello-200717b.png) <br>
+![trello-200717](./docs/project-management/trello-200717c.png) <br>
+
+18/07/2020 <br>
+![trello-200718](./docs/project-management/trello-200718a.png) <br>
+
+22/07/2020 <br>
+![trello-200722](./docs/project-management/trello-200722.png) <br>
+
+25/07/2020 <br>
+![trello-200725](./docs/project-management/trello-200725.png) <br>
+
+31/07/2020
+![trello-200731](./docs/project-management/trello-200731.png) <br>
 
 ---
 
 #### R4 - Use a recognised task delegation methodology
-**Screen shots:**
+Tags were used to delegate cards to team members, with the flexibility of having multiple team members listed for one card, if needed. 
+See above screenshots for examples of tag usage.
 
 ---
 
@@ -90,56 +115,80 @@ In our application registered user can add a new expense. Once they added a new 
 ---
 
 #### R6 - Deploy the application to a cloud hosting service
+Server code for this expense tracking application is hosted on the Heroku platform. 
+Client side code for this application has been deployed through Netlify, via direct link with GitHub. 
 
 ---
 
 #### R7 - Produce an application with an intuitive user interface
-###### Screenshots
+**Screenshots:**
 
 1. Home:
    
- ![main-home](/docs/application-screenshots/main-page.png)
+ ![main-home](./docs/application-screenshots/main-page.png)
 
 2. Register:
    
- ![register-user](/docs/application-screenshots/register.png)
+ ![register-user](./docs/application-screenshots/register.png)
 
 3. Login:
    
- ![login-user](/docs/application-screenshots/login.png)
+ ![login-user](./docs/application-screenshots/login.png)
 
 4. Users Home:
    
- ![user-home](/docs/application-screenshots/home-user.png)
+ ![user-home](./docs/application-screenshots/home-user.png)
 
 5. Add New Expense:
    
- ![add-expense](/docs/application-screenshots/add-expense.png)
+ ![add-expense](./docs/application-screenshots/add-expense.png)
 
 6.  All Expenses:
    
- ![expense-list](/docs/application-screenshots/expense-list.png)
+ ![expense-list](./docs/application-screenshots/expense-list.png)
 
 ---
 
 #### R8	**Provides evidence of user testing**:
-screen shots
-1. Back end :
-![server-side-manual-test-image](/docs/testing-screenshots/server-manual-test.png)
+**Screenshots:**
+1. Back end: <br>
+![server-side-manual-test-image](./docs/testing-screenshots/server-manual-test.png)
  
-[Back-end-manual-test-pdf](docs/testing-screenshots/MERN-expense-tracker-manual-testing%20-%20SERVER%20-%20http%20client%20(1).pdf)
+- [Back-end-manual-test-pdf](docs/testing-screenshots/MERN-expense-tracker-manual-testing%20-%20SERVER%20-%20http%20client%20(1).pdf)
 
-2. Front end :
+- Mocha:
+- ![mocha-test-image](./docs/testing-screenshots/mocha.png)
 
+- REST API:
+- ![rest-api-image](./docs/testing-screenshots/rest-api1.png)
+- ![rest-api-image](./docs/testing-screenshots/rest-api2.png)
+- ![rest-api-image](./docs/testing-screenshots/rest-api3.png)
+- ![rest-api-image](./docs/testing-screenshots/rest-api4.png)
+- ![rest-api-image](./docs/testing-screenshots/rest-api5.png)
+- ![rest-api-image](./docs/testing-screenshots/rest-api6.png)
+
+2. Front end: <br>
+**link to spreadsheet
+
+3. End-to-end/Integration: <br>
+![cypress-test](./docs/testing-screenshots/cypress-test.png)
+
+- Testing on expense components
+![cypress-expenses](./docs/testing-screenshots/cypress-expenses.png)
+
+- Testing on user components
+![cypress-login-logout](./docs/testing-screenshots/cypress-login-logout.png)
+![cypress-login-logout](./docs/testing-screenshots/cypress-login-logout1.png)
+![cypress-login-users](./docs/testing-screenshots/cypress-users.png)
 
 ---
 
 #### R9 - Utilises a formal testing framework
+Throughout development formal testing frameworks including mocha, client http and cypress were utilised. 
 
-describe mocha
-manual test
-cypress
-client http
+Manual testing was used throughout, and recorded in a spreadsheet, as features were developed. 
+
+Testing in the production environment included further cypress testing and manual testing. 
 
 ---
 
