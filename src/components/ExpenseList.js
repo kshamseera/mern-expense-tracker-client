@@ -85,9 +85,7 @@ const ExpenseList = () => {
             views={["year", "month", "date"]}
             value={formDate.fromDate}
             onChange={handleFromDateChange}
-            showTodayButton
-
-         />
+            showTodayButton/>
         <DatePicker
             format="dd/MM/yyyy"
             label=" Records To"
@@ -95,8 +93,7 @@ const ExpenseList = () => {
             views={["year", "month", "date"]}
             value={formDate.toDate}
             onChange={handleToDateChange} 
-            showTodayButton
-         />
+            showTodayButton/>
         </MuiPickersUtilsProvider>
         <Button 
             variant="contained" 
