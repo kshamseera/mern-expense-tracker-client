@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
 
 const ExpenseOverview = () => {
     const {store} = useGlobalState()
-    const {expenses} =store
+    const {expenses,loggedInUser} =store
     
     const classes = useStyles()
 
@@ -56,7 +56,7 @@ const ExpenseOverview = () => {
     
     return ( 
         <Card className={classes.card}>
-          <Typography variant="h4" className={classes.title2} color="textPrimary" style={{textAlign:'center'}}>You've spent</Typography>
+          <Typography variant="h4" className={classes.title2} color="textPrimary" style={{textAlign:'center'}}>Hi {loggedInUser}, you've spent</Typography>
         <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
           <Typography component="span" data-cy="monthlySpend" className={classes.totalSpent}>${monthTotal} <span style={{display: 'block', fontSize:'0.3em'}}>So Far This Month</span></Typography>
         <div style={{margin:'20px 20px 20px 30px' }}>
