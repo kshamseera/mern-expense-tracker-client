@@ -154,7 +154,7 @@ Client side code for this application has been deployed through Netlify, via dir
 1. Back end: <br>
 ![server-side-manual-test-image](./docs/testing-screenshots/server-manual-test.png)
  
-- [Back-end-manual-test-pdf](docs/testing-screenshots/MERN-expense-tracker-manual-testing%20-%20SERVER%20-%20http%20client%20(1).pdf)
+Link: [Back-end-manual-test-pdf](docs/testing-screenshots/MERN-expense-tracker-manual-testing%20-%20SERVER%20-%20http%20client%20(1).pdf)
 
 - Mocha:
 - ![mocha-test-image](./docs/testing-screenshots/mocha.png)
@@ -167,10 +167,18 @@ Client side code for this application has been deployed through Netlify, via dir
 - ![rest-api-image](./docs/testing-screenshots/rest-api5.png)
 - ![rest-api-image](./docs/testing-screenshots/rest-api6.png)
 
-2. Front end: <br>
-**link to spreadsheet
+1. Front end: <br>
 
-3. End-to-end/Integration: <br>
+Development-Manual-Testing:
+![client-dev-manual-test](./docs/testing-screenshots/client-dev-test.png)
+Link: [frontEnd-dev-manual-test-pdf](docs/testing-screenshots/client-dev-test%20.pdf)
+
+Production-Manual-Testing:
+![client-dev-manual-test](./docs/testing-screenshots/client-production-testing.png)
+Link: [frontEnd-prod-manual-test-pdf](docs/testing-screenshots/client-prod-test.pdf)
+
+
+1. End-to-end/Integration: <br>
 ![cypress-test](./docs/testing-screenshots/cypress-test.png)
 
 - Testing on expense components
