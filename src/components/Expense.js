@@ -2,12 +2,15 @@ import React from 'react'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider'
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import {useGlobalState} from '../config/store'
 import {deleteExpense} from '../services/expenseServices'
+import { grey } from '@material-ui/core/colors'
 
 const useStyles = makeStyles(theme => ({
 
@@ -16,7 +19,8 @@ const useStyles = makeStyles(theme => ({
         maxWidth: '700px',
         margin: 'auto',
         marginTop: 40,
-        marginBottom: 40
+        marginBottom: 40,
+        backgroundColor: grey
     },
     heading: {
       fontSize: '1.5em',
@@ -25,13 +29,20 @@ const useStyles = makeStyles(theme => ({
       marginBottom: 4,
       textTransform:'capitalize'
     },
+    expButtons: {
+      size: 'small',
+      alignItems: 'right',
+    },
     info: {
         marginRight: 32,
         width: 90
     },
     panel: {
       border: '1px solid black',
-      margin: 6
+      margin: 6,
+    },
+    column: {
+      flexBasis: '33.33%',
     },
     amount: {
       fontSize: '2em',
@@ -79,31 +90,34 @@ const Expense = ({history, expense, showControls}) => {
 
     return (
         <div className={classes.root}>
-      
-        <ExpansionPanel className={classes.panel} >
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-          >
-            <div className={classes.info}>
-                <Typography className={classes.amount}>${amount}</Typography><Divider style={{marginTop: 4, marginBottom: 4}}/>
+          <ExpansionPanel >
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <div className={classes.info}>
+                <Typography className={classes.amount}>${amount}</Typography>
+                <Divider style={{marginTop: 4, marginBottom: 4}}/>
                 <Typography className={classes.date}>{new Date(date).toLocaleDateString()}</Typography>  
-            </div>
-            <div>
+              </div>
+              <div>
                 <Typography className={classes.heading}>{item}</Typography>
-            </div>
-          </ExpansionPanelSummary>
+              </div>
+            </ExpansionPanelSummary>
             <Divider />
-          <ExpansionPanelDetails style={{display: 'block'}}>
+          <ExpansionPanelDetails style={{display: 'flex'}}>
+          <div className={classes.column}>
             <Typography component="p" > Item: {item}</Typography>
             <Typography component="p"> Amount: ${amount}</Typography>
             <Typography component="p">Date: {new Date(date).toLocaleDateString()}</Typography>
             <Typography component="p">Category: {category}</Typography>
+            </div>
+            <div className={classes.column}>
             <Typography component="p" >Description: {notes}</Typography> 
+            </div>
+            <Divider />
             {showControls && allowEditDelete && (
-                <div>
-                <button onClick={handleDelete} data-cy="deleteButton">Delete</button>
-                <button onClick={handleEdit} data-cy="editButton">Edit</button>
-                </div>
+            <ExpansionPanelActions>
+              <Button color='secondary' variant='contained' size='small' className={classes.expButtons} onClick={handleDelete} data-cy="deleteButton">Delete</Button>
+              <Button color='primary' variant='contained' size='small' onClick={handleEdit} data-cy="editButton">Edit</Button>
+            </ExpansionPanelActions>
             )}
           </ExpansionPanelDetails>
         </ExpansionPanel>

@@ -158,8 +158,8 @@ const NewExpense = ({history}) => {
           <br/>
           <br/>
           <TextField
-            id="description"
-            name="description"
+            id="notes"
+            name="notes"
             label="Description"
             multiline
             rows="2"

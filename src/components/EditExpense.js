@@ -172,8 +172,8 @@ const EditExpense = ({history, match}) => {
           <br/>
           <br/>
           <TextField
-            id="description"
-            name="description"
+            id="notes"
+            name="notes"
             label="Description"
             value={formState.notes}
             multiline
